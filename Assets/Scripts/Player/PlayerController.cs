@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
         
         GameObject dumm = new GameObject("DummyPlayer");
         dumm.transform.position = transform.position;
-        //dumm.transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z);
+        dumm.transform.rotation = Quaternion.Euler(transform.eulerAngles);
         
         GameObject newArk = Instantiate(Ark);
         newArk.GetComponent<ArkController>().player = this.gameObject;
