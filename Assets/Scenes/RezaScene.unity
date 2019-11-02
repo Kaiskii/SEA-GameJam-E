@@ -235,7 +235,7 @@ PrefabInstance:
     - target: {fileID: 1914543864192267527, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}
       propertyPath: m_Name
-      value: Player1Ship3
+      value: Player2Ship3
       objectReference: {fileID: 0}
     - target: {fileID: 1914543864192267514, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}
@@ -245,7 +245,7 @@ PrefabInstance:
     - target: {fileID: 1914543864192267514, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 3.55
       objectReference: {fileID: 0}
     - target: {fileID: 1914543864192267514, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}
@@ -307,7 +307,7 @@ PrefabInstance:
     - target: {fileID: 1914543864192267513, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}
       propertyPath: playerNumber
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1914543864192267512, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}
@@ -780,7 +780,7 @@ PrefabInstance:
     - target: {fileID: 1914543864192267527, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}
       propertyPath: m_Name
-      value: Player1Ship2
+      value: Player2Ship2
       objectReference: {fileID: 0}
     - target: {fileID: 1914543864192267514, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}
@@ -790,7 +790,7 @@ PrefabInstance:
     - target: {fileID: 1914543864192267514, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.92
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 1914543864192267514, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}
@@ -837,6 +837,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 1914543864192267514, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.0000005
+      objectReference: {fileID: 0}
+    - target: {fileID: 1914543864192267514, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.0000005
+      objectReference: {fileID: 0}
     - target: {fileID: 1914543864192267513, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}
       propertyPath: shipScriptableObject
@@ -852,7 +862,7 @@ PrefabInstance:
     - target: {fileID: 1914543864192267513, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}
       propertyPath: playerNumber
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1914543864192267512, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}
@@ -862,6 +872,12 @@ PrefabInstance:
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd, type: 3}
+--- !u!1 &1273955243 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1914543864192267527, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
+    type: 3}
+  m_PrefabInstance: {fileID: 1612578531}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1411568127
 GameObject:
   m_ObjectHideFlags: 0
@@ -892,11 +908,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player1Ships:
+  - {fileID: 932804367}
+  - {fileID: 2071904631}
+  - {fileID: 1273955243}
+  player2Ships:
   - {fileID: 1143902848}
   - {fileID: 183127067}
   - {fileID: 490342777}
-  player2Ships:
-  - {fileID: 932804367}
   templateTrail: {fileID: 5507704899316335159, guid: e4a5fb9f52d1190bd9bab0ea5f737f2c,
     type: 3}
 --- !u!4 &1411568129
@@ -923,7 +941,7 @@ PrefabInstance:
     - target: {fileID: 1914543864192267527, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}
       propertyPath: m_Name
-      value: Player1Ship1
+      value: Player2Ship1
       objectReference: {fileID: 0}
     - target: {fileID: 1914543864192267514, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}
@@ -980,10 +998,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 1914543864192267514, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.0000005
+      objectReference: {fileID: 0}
+    - target: {fileID: 1914543864192267514, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.0000005
+      objectReference: {fileID: 0}
     - target: {fileID: 1914543864192267513, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}
       propertyPath: playerNumber
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd, type: 3}
@@ -997,7 +1025,7 @@ PrefabInstance:
     - target: {fileID: 1914543864192267527, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}
       propertyPath: m_Name
-      value: Player2Ship2
+      value: Player1Ship3
       objectReference: {fileID: 0}
     - target: {fileID: 1914543864192267514, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}
@@ -1057,7 +1085,7 @@ PrefabInstance:
     - target: {fileID: 1914543864192267513, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}
       propertyPath: playerNumber
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1914543864192267513, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}
@@ -1083,7 +1111,7 @@ PrefabInstance:
     - target: {fileID: 1914543864192267527, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}
       propertyPath: m_Name
-      value: Player2Ship2
+      value: Player1Ship2
       objectReference: {fileID: 0}
     - target: {fileID: 1914543864192267514, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}
@@ -1140,6 +1168,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 1914543864192267513, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
+        type: 3}
+      propertyPath: playerNumber
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd, type: 3}
 --- !u!1001 &1948998757
@@ -1152,7 +1185,7 @@ PrefabInstance:
     - target: {fileID: 1914543864192267527, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}
       propertyPath: m_Name
-      value: Player2Ship1
+      value: Player1Ship1
       objectReference: {fileID: 0}
     - target: {fileID: 1914543864192267514, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}
@@ -1212,7 +1245,7 @@ PrefabInstance:
     - target: {fileID: 1914543864192267513, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}
       propertyPath: playerNumber
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1914543864192267513, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}
@@ -1228,3 +1261,9 @@ PrefabInstance:
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd, type: 3}
+--- !u!1 &2071904631 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1914543864192267527, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
+    type: 3}
+  m_PrefabInstance: {fileID: 1653089294}
+  m_PrefabAsset: {fileID: 0}

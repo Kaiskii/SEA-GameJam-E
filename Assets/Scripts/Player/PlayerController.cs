@@ -19,9 +19,11 @@ public class PlayerController : MonoBehaviour
     public bool startRecording;
     public bool goToRecording;
     public bool isChosenShip;
+    private bool canShoot = true;
     public GameObject Ark;
     public ParticleSystem trail;
     private GameObject dummyPlayer;
+    
     
     List<PositionRecords> allPositionRecords;
 
@@ -46,14 +48,48 @@ public class PlayerController : MonoBehaviour
         if (!isChosenShip) return;
         if (startRecording) RecordMovements();
         if (goToRecording) GoToRecordMovements();
-
+        
 
         
        if(!goToRecording) RotateDummy();
+        CheckForShoot();
 
     }
+    IEnumerator ShootDelay()
+    {
+        yield return new WaitForSeconds(0.2f);
+        canShoot = true;
+    }
+    void CheckForShoot()
+    {
+        switch(playerNumber)
+        {
+            case PlayerNumber.NUMBER1:
+                if(Input.GetKeyDown(KeyCode.W))
+                {
+                    if(canShoot && goToRecording) Shoot();
 
-    
+                }
+                else if (Input.GetKeyDown(KeyCode.S))
+                {
+                    if (canShoot&& goToRecording) FakeShoot();
+
+                }
+                break;
+            case PlayerNumber.NUMBER2:
+                if (Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    if (canShoot && goToRecording) Shoot();
+
+                }
+                else if (Input.GetKeyDown(KeyCode.DownArrow))
+                {
+                    if (canShoot && goToRecording) FakeShoot();
+
+                }
+                break;
+        }
+    }
 
     public void MakeThisChosen()
     {
@@ -167,7 +203,22 @@ public class PlayerController : MonoBehaviour
         
         
     }
+    public void Destroy()
+    {
+        
+    }
 
+     void Shoot()
+    {
+        canShoot = false;
+        StartCoroutine(ShootDelay());
+    }
+
+    void FakeShoot()
+    {
+        canShoot = false;
+        StartCoroutine(ShootDelay());
+    }
     void MoveDummy()
     {
         
