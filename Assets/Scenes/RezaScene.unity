@@ -771,6 +771,8 @@ MonoBehaviour:
   - {fileID: 490342777}
   player2Ships:
   - {fileID: 932804367}
+  templateTrail: {fileID: 5507704899316335159, guid: e4a5fb9f52d1190bd9bab0ea5f737f2c,
+    type: 3}
 --- !u!4 &1411568129
 Transform:
   m_ObjectHideFlags: 0
@@ -894,12 +896,12 @@ PrefabInstance:
     - target: {fileID: 1914543864192267514, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 1914543864192267514, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1914543864192267514, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}
@@ -919,7 +921,7 @@ PrefabInstance:
     - target: {fileID: 1914543864192267514, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -180
       objectReference: {fileID: 0}
     - target: {fileID: 1914543864192267513, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
         type: 3}

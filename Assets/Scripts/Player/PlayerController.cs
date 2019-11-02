@@ -56,10 +56,9 @@ public class PlayerController : MonoBehaviour
         //Dummy
         
         GameObject dumm = new GameObject("DummyPlayer");
-
         dumm.transform.position = transform.position;
-        dumm.transform.rotation = transform.rotation;
-        dumm.transform.eulerAngles = transform.eulerAngles;
+        //dumm.transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z);
+        
         GameObject newArk = Instantiate(Ark);
         newArk.GetComponent<ArkController>().player = this.gameObject;
         Rigidbody2D dummRb=dumm.AddComponent<Rigidbody2D>();
@@ -68,10 +67,10 @@ public class PlayerController : MonoBehaviour
         
         
         //trail
-        trail.Play();
-        trail.loop = true;
-        trail.transform.SetParent(dumm.transform);
-        trail.transform.localPosition = Vector3.zero;
+        //trail.Play();
+        //trail.loop = true;
+       // trail.transform.SetParent(dumm.transform);
+        //trail.transform.localPosition = Vector3.zero;
 
         //trail
 
