@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         player1Ships[0].GetComponent<PlayerController>().MakeThisChosen();
+        player2Ships[0].GetComponent<PlayerController>().MakeThisChosen();
     }
 
 

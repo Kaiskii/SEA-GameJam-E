@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d4a1cf8f2bcd33740a88cee5986256ca
+guid: b894285e2bc335e41b1b1cd2652a0760
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -40,12 +40,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 3
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 4
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -60,30 +60,6 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: 4
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Standalone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: 4
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: 4
@@ -176,7 +152,7 @@ TextureImporter:
       - {x: 1.0282005, y: -1.7154602}
       - {x: 1.1111355, y: -1.6629425}
       - {x: 1.1913936, y: -1.6064187}
-      - {x: 1.2687817, y: -1.546025}
+      - {x: 1.2687817, y: -1.5460249}
       - {x: 1.3431131, y: -1.4819067}
       - {x: 1.4142088, y: -1.4142184}
       - {x: 1.4818976, y: -1.3431231}
@@ -305,7 +281,7 @@ TextureImporter:
       - {x: 1.0282005, y: -1.7154602}
       - {x: 1.1111355, y: -1.6629425}
       - {x: 1.1913936, y: -1.6064187}
-      - {x: 1.2687817, y: -1.546025}
+      - {x: 1.2687817, y: -1.5460249}
       - {x: 1.3431131, y: -1.4819067}
       - {x: 1.4142088, y: -1.4142184}
       - {x: 1.4818976, y: -1.3431231}

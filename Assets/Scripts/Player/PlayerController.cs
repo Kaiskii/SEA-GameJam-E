@@ -8,6 +8,7 @@ using UnityEngine.UI;
 }*/
 public class PlayerController : MonoBehaviour
 {
+    public PlayerNumber playerNumber;
     public float fuel;
     //public ShipNumber thisPlayerNumber;
     public float movementSpeed=10f;
@@ -53,21 +54,32 @@ public class PlayerController : MonoBehaviour
         isChosenShip = true;
         startRecording = true;
         //Dummy
-        GameObject newArk=Instantiate(Ark);
-        newArk.GetComponent<ArkController>().player = this.gameObject;
+        
         GameObject dumm = new GameObject("DummyPlayer");
+
         dumm.transform.position = transform.position;
         dumm.transform.rotation = transform.rotation;
+        dumm.transform.eulerAngles = transform.eulerAngles;
+        GameObject newArk = Instantiate(Ark);
+        newArk.GetComponent<ArkController>().player = this.gameObject;
         Rigidbody2D dummRb=dumm.AddComponent<Rigidbody2D>();
         dummRb.gravityScale = 0;
         dummyPlayer = dumm;
-        Ark.gameObject.SetActive(true);
+        
+        
+        //trail
         trail.Play();
         trail.loop = true;
-        Ark.transform.SetParent(dumm.transform);
         trail.transform.SetParent(dumm.transform);
+        trail.transform.localPosition = Vector3.zero;
+
+        //trail
+
+        newArk.gameObject.SetActive(true);
+        newArk.transform.SetParent(dumm.transform);
+        newArk.transform.localPosition = Vector3.zero;       
         //
-        
+
     }
 
     public void StartGoingToRecords()
@@ -105,27 +117,70 @@ public class PlayerController : MonoBehaviour
 
     void RotateDummy()
     {
-        rotationZ -= Input.GetAxisRaw("Horizontal") * rotationSpeed;
-        dummyPlayer.transform.eulerAngles = new Vector3(0, 0, rotationZ);
+        switch(playerNumber)
+        {
+            case PlayerNumber.NUMBER1:
+                {
+                    rotationZ -= Input.GetAxisRaw("Player1Horizontal") * rotationSpeed;
+                    dummyPlayer.transform.eulerAngles = new Vector3(0, 0, rotationZ);
+
+                    break;
+                }
+            case PlayerNumber.NUMBER2:
+                {
+                    rotationZ -= Input.GetAxisRaw("Player2Horizontal") * rotationSpeed;
+                    dummyPlayer.transform.eulerAngles = new Vector3(0, 0, rotationZ);
+
+                    break;
+                }
+        }
+        
         
     }
 
     void MoveDummy()
     {
         
-        float hInput = Input.GetAxisRaw("Horizontal");
-        float vInput = Input.GetAxisRaw("Vertical");
-        Vector2 input = new Vector2(hInput, vInput);
-        movement.x = hInput;
-        movement.y = vInput;
+        switch(playerNumber)
+        {
+            case PlayerNumber.NUMBER1:
+                {
+                    float hInput = Input.GetAxisRaw("Player1Horizontal");
+                    float vInput = Input.GetAxisRaw("Player1Vertical");
+                    Vector2 input = new Vector2(hInput, vInput);
+                    movement.x = hInput;
+                    movement.y = vInput;
+
+                    // if (input.magnitude > 0) Instantiate(trailGO, transform.position, Quaternion.identity);
+                    Vector3 moveDirection = dummyPlayer.transform.up * 1 * movementSpeed * Time.fixedDeltaTime;
+                    Vector2 rbMove = new Vector2(moveDirection.x, moveDirection.y);
+
+
+
+                    dummyPlayer.GetComponent<Rigidbody2D>().MovePosition(dummyPlayer.GetComponent<Rigidbody2D>().position + rbMove * movementSpeed * Time.fixedDeltaTime);
+                    break;
+                }
+            case PlayerNumber.NUMBER2:
+                {
+                    float hInput = Input.GetAxisRaw("Player2Horizontal");
+                    float vInput = Input.GetAxisRaw("Player2Vertical");
+                    Vector2 input = new Vector2(hInput, vInput);
+                    movement.x = hInput;
+                    movement.y = vInput;
+
+                    // if (input.magnitude > 0) Instantiate(trailGO, transform.position, Quaternion.identity);
+                    Vector3 moveDirection = dummyPlayer.transform.up * 1 * movementSpeed * Time.fixedDeltaTime;
+                    Vector2 rbMove = new Vector2(moveDirection.x, moveDirection.y);
+
+
+
+                    dummyPlayer.GetComponent<Rigidbody2D>().MovePosition(dummyPlayer.GetComponent<Rigidbody2D>().position + rbMove * movementSpeed * Time.fixedDeltaTime);
+                    break;
+                }
+        }
         
-      // if (input.magnitude > 0) Instantiate(trailGO, transform.position, Quaternion.identity);
-       Vector3 moveDirection= dummyPlayer.transform.up * 1 * movementSpeed * Time.fixedDeltaTime;
-        Vector2 rbMove = new Vector2(moveDirection.x, moveDirection.y);
-
-
-
-        dummyPlayer.GetComponent<Rigidbody2D>().MovePosition(dummyPlayer.GetComponent<Rigidbody2D>().position+ rbMove * movementSpeed * Time.fixedDeltaTime);
+        
+        
         
     }
 }
