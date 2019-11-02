@@ -24,7 +24,7 @@ public class TurnManager : MonoBehaviour
     private float currentCountdown;
 
     [SerializeField] public int numberOfShips;
-    private int currentShip
+    private int currentShip;
     
 
     private void Awake()

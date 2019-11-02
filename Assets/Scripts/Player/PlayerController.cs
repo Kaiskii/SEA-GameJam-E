@@ -106,7 +106,8 @@ public class PlayerController : MonoBehaviour
     void RotateDummy()
     {
         rotationZ -= Input.GetAxisRaw("Horizontal") * rotationSpeed;
-        dummyPlayer.transform.eulerAngles = new Vector3(0.0f, 0.0f, rotationZ);
+        dummyPlayer.transform.eulerAngles = new Vector3(0, 0, rotationZ);
+        
     }
 
     void MoveDummy()
@@ -119,12 +120,12 @@ public class PlayerController : MonoBehaviour
         movement.y = vInput;
         
       // if (input.magnitude > 0) Instantiate(trailGO, transform.position, Quaternion.identity);
-       Vector3 moveDirection= dummyPlayer.transform.up * 1 * movementSpeed * Time.deltaTime;
+       Vector3 moveDirection= dummyPlayer.transform.up * 1 * movementSpeed * Time.fixedDeltaTime;
         Vector2 rbMove = new Vector2(moveDirection.x, moveDirection.y);
 
 
 
-        dummyPlayer.GetComponent<Rigidbody2D>().MovePosition(dummyPlayer.GetComponent<Rigidbody2D>().position+ rbMove * movementSpeed * Time.deltaTime);
+        dummyPlayer.GetComponent<Rigidbody2D>().MovePosition(dummyPlayer.GetComponent<Rigidbody2D>().position+ rbMove * movementSpeed * Time.fixedDeltaTime);
         
     }
 }

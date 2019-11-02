@@ -1,13 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public enum ShipNumber
-{
-    NUMBER1, NUMBER2, NUMBER3, NUMBER4
-}
+
 public class ArkController : MonoBehaviour
 {
-    public ShipNumber thisPlayerNumber ;
+    
     public GameObject player;
     public Vector3 offSet;
     public float rotationSpeed ;
