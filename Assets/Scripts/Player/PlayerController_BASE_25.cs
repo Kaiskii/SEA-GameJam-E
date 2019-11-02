@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private ShipData shipData;
 
     public PlayerNumber playerNumber;
-    
+    //public ShipNumber thisPlayerNumber;
     public Rigidbody2D rb;
     public float rotationZ;
     Vector2 movement;
@@ -56,59 +56,32 @@ public class PlayerController : MonoBehaviour
 
     public void MakeThisChosen()
     {
-        GameObject xx = new GameObject("xx");
-        xx.transform.rotation = this.transform.rotation;
         isChosenShip = true;
         startRecording = true;
         //Dummy
         
         GameObject dumm = new GameObject("DummyPlayer");
         dumm.transform.position = transform.position;
-        Rigidbody2D dummRb = dumm.AddComponent<Rigidbody2D>();
+        dumm.transform.rotation = Quaternion.Euler(transform.eulerAngles);
+        
+        GameObject newArk = Instantiate(Ark);
+        newArk.GetComponent<ArkController>().player = this.gameObject;
+        Rigidbody2D dummRb=dumm.AddComponent<Rigidbody2D>();
         dummRb.gravityScale = 0;
-
-        dumm.transform.rotation = this.transform.rotation;
-       dummyPlayer = dumm;
-        GameObject newArk = Instantiate(Ark, dumm.transform.position, dumm.transform.rotation);
-        
-        
-        
-        
-
         dummyPlayer = dumm;
-
-        //Assigning ColorOverLifeTimeModule
-        ParticleSystem.ColorOverLifetimeModule cltm = trail.colorOverLifetime;
-
-        //Changing to Red if PlayerNumber1
-        if (playerNumber == PlayerNumber.NUMBER1) {
-            //Gradient Initialization
-            Gradient grad = new Gradient();
-            grad.SetKeys(new GradientColorKey[] { new GradientColorKey(new Color(0.78f, 0.18f, 0.2f), 0.0f),
-                                              new GradientColorKey(new Color(0.5f, 0.5f, 0.5f), 1.0f) },
-                                                    new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f),
-                                                new GradientAlphaKey(1.0f, 1.0f) });
-
-            cltm.color = grad;
-        }
-
-
-
+        
+        
         //trail
         //trail.Play();
         //trail.loop = true;
-        // trail.transform.SetParent(dumm.transform);
+       // trail.transform.SetParent(dumm.transform);
         //trail.transform.localPosition = Vector3.zero;
 
         //trail
-        
-        newArk.GetComponent<ArkController>().player = this.gameObject;
+
         newArk.gameObject.SetActive(true);
         newArk.transform.SetParent(dumm.transform);
-        newArk.transform.localPosition = Vector3.zero;
-
-        
-
+        newArk.transform.localPosition = Vector3.zero;       
         //
 
     }
@@ -153,14 +126,14 @@ public class PlayerController : MonoBehaviour
             case PlayerNumber.NUMBER1:
                 {
                     rotationZ -= Input.GetAxisRaw("Player1Horizontal") * shipData.turnSpeed;
-                    dummyPlayer.transform.eulerAngles = new Vector3(0, 0,transform.eulerAngles.z+ rotationZ);
+                    dummyPlayer.transform.eulerAngles = new Vector3(0, 0, rotationZ);
 
                     break;
                 }
             case PlayerNumber.NUMBER2:
                 {
                     rotationZ -= Input.GetAxisRaw("Player2Horizontal") * shipData.turnSpeed;
-                    dummyPlayer.transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z+rotationZ);
+                    dummyPlayer.transform.eulerAngles = new Vector3(0, 0, rotationZ);
 
                     break;
                 }
@@ -183,7 +156,7 @@ public class PlayerController : MonoBehaviour
                     movement.y = vInput;
 
                     // if (input.magnitude > 0) Instantiate(trailGO, transform.position, Quaternion.identity);
-                    Vector3 moveDirection = dummyPlayer.transform.TransformDirection(Vector3.up) * 1 * shipData.normalSpeed * Time.fixedDeltaTime;
+                    Vector3 moveDirection = dummyPlayer.transform.up * 1 * shipData.normalSpeed * Time.fixedDeltaTime;
                     Vector2 rbMove = new Vector2(moveDirection.x, moveDirection.y);
 
 
@@ -200,7 +173,7 @@ public class PlayerController : MonoBehaviour
                     movement.y = vInput;
 
                     // if (input.magnitude > 0) Instantiate(trailGO, transform.position, Quaternion.identity);
-                    Vector3 moveDirection = dummyPlayer.transform.TransformDirection(Vector3.up) * shipData.normalSpeed * Time.fixedDeltaTime;
+                    Vector3 moveDirection = dummyPlayer.transform.up * -1 * shipData.normalSpeed * Time.fixedDeltaTime;
                     Vector2 rbMove = new Vector2(moveDirection.x, moveDirection.y);
 
 

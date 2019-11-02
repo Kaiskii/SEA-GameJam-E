@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private ShipData shipData;
 
     public PlayerNumber playerNumber;
-    
+    //public ShipNumber thisPlayerNumber;
     public Rigidbody2D rb;
     public float rotationZ;
     Vector2 movement;
@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
         dumm.transform.position = transform.position;
         Rigidbody2D dummRb = dumm.AddComponent<Rigidbody2D>();
         dummRb.gravityScale = 0;
-
+<<<<<<< HEAD
         dumm.transform.rotation = this.transform.rotation;
        dummyPlayer = dumm;
         GameObject newArk = Instantiate(Ark, dumm.transform.position, dumm.transform.rotation);
@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
         
         
         
-
+=======
         dummyPlayer = dumm;
 
         //Assigning ColorOverLifeTimeModule
@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
             cltm.color = grad;
         }
 
-
+>>>>>>> 220bf8e6ce84a227a2bae25296e722e06d276bb8
 
         //trail
         //trail.Play();
