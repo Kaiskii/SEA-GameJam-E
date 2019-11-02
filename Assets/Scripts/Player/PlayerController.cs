@@ -69,12 +69,27 @@ public class PlayerController : MonoBehaviour
         Rigidbody2D dummRb=dumm.AddComponent<Rigidbody2D>();
         dummRb.gravityScale = 0;
         dummyPlayer = dumm;
-        
-        
+
+        //Assigning ColorOverLifeTimeModule
+        ParticleSystem.ColorOverLifetimeModule cltm = trail.colorOverLifetime;
+
+        //Changing to Red if PlayerNumber1
+        if (playerNumber == PlayerNumber.NUMBER1) {
+            //Gradient Initialization
+            Gradient grad = new Gradient();
+            grad.SetKeys(new GradientColorKey[] { new GradientColorKey(new Color(0.78f, 0.18f, 0.2f), 0.0f),
+                                              new GradientColorKey(new Color(0.5f, 0.5f, 0.5f), 1.0f) },
+                                                    new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f),
+                                                new GradientAlphaKey(1.0f, 1.0f) });
+
+            cltm.color = grad;
+        }
+
+
         //trail
         //trail.Play();
         //trail.loop = true;
-       // trail.transform.SetParent(dumm.transform);
+        // trail.transform.SetParent(dumm.transform);
         //trail.transform.localPosition = Vector3.zero;
 
         //trail
