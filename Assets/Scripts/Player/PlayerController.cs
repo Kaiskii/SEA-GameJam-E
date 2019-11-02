@@ -8,11 +8,12 @@ using UnityEngine.UI;
 }*/
 public class PlayerController : MonoBehaviour
 {
+    // Attach Data
+    public ShipScriptableObject shipScriptableObject;
+    private ShipData shipData;
+
     public PlayerNumber playerNumber;
-    public float fuel;
     //public ShipNumber thisPlayerNumber;
-    public float movementSpeed=10f;
-    public float rotationSpeed ;
     public Rigidbody2D rb;
     public float rotationZ;
     Vector2 movement;
@@ -25,6 +26,13 @@ public class PlayerController : MonoBehaviour
     
     List<PositionRecords> allPositionRecords;
     // Start is called before the first frame update
+
+    void Awake()
+    {
+        shipData = new ShipData(shipScriptableObject.shipData);
+    }
+
+
     void Start()
     {
         allPositionRecords = new List<PositionRecords>();
@@ -121,14 +129,14 @@ public class PlayerController : MonoBehaviour
         {
             case PlayerNumber.NUMBER1:
                 {
-                    rotationZ -= Input.GetAxisRaw("Player1Horizontal") * rotationSpeed;
+                    rotationZ -= Input.GetAxisRaw("Player1Horizontal") * shipData.turnSpeed;
                     dummyPlayer.transform.eulerAngles = new Vector3(0, 0, rotationZ);
 
                     break;
                 }
             case PlayerNumber.NUMBER2:
                 {
-                    rotationZ -= Input.GetAxisRaw("Player2Horizontal") * rotationSpeed;
+                    rotationZ -= Input.GetAxisRaw("Player2Horizontal") * shipData.turnSpeed;
                     dummyPlayer.transform.eulerAngles = new Vector3(0, 0, rotationZ);
 
                     break;
@@ -152,12 +160,12 @@ public class PlayerController : MonoBehaviour
                     movement.y = vInput;
 
                     // if (input.magnitude > 0) Instantiate(trailGO, transform.position, Quaternion.identity);
-                    Vector3 moveDirection = dummyPlayer.transform.up * 1 * movementSpeed * Time.fixedDeltaTime;
+                    Vector3 moveDirection = dummyPlayer.transform.up * 1 * shipData.normalSpeed * Time.fixedDeltaTime;
                     Vector2 rbMove = new Vector2(moveDirection.x, moveDirection.y);
 
 
 
-                    dummyPlayer.GetComponent<Rigidbody2D>().MovePosition(dummyPlayer.GetComponent<Rigidbody2D>().position + rbMove * movementSpeed * Time.fixedDeltaTime);
+                    dummyPlayer.GetComponent<Rigidbody2D>().MovePosition(dummyPlayer.GetComponent<Rigidbody2D>().position + rbMove * shipData.normalSpeed * Time.fixedDeltaTime);
                     break;
                 }
             case PlayerNumber.NUMBER2:
@@ -169,12 +177,12 @@ public class PlayerController : MonoBehaviour
                     movement.y = vInput;
 
                     // if (input.magnitude > 0) Instantiate(trailGO, transform.position, Quaternion.identity);
-                    Vector3 moveDirection = dummyPlayer.transform.up * 1 * movementSpeed * Time.fixedDeltaTime;
+                    Vector3 moveDirection = dummyPlayer.transform.up * 1 * shipData.normalSpeed * Time.fixedDeltaTime;
                     Vector2 rbMove = new Vector2(moveDirection.x, moveDirection.y);
 
 
 
-                    dummyPlayer.GetComponent<Rigidbody2D>().MovePosition(dummyPlayer.GetComponent<Rigidbody2D>().position + rbMove * movementSpeed * Time.fixedDeltaTime);
+                    dummyPlayer.GetComponent<Rigidbody2D>().MovePosition(dummyPlayer.GetComponent<Rigidbody2D>().position + rbMove * shipData.normalSpeed * Time.fixedDeltaTime);
                     break;
                 }
         }
