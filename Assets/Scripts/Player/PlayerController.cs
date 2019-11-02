@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     {
         allPositionRecords = new List<PositionRecords>();
         Ark.gameObject.SetActive(false);
+        trail = transform.Find("templateTrail").GetComponent<ParticleSystem>();
         
     }
 
@@ -56,8 +57,7 @@ public class PlayerController : MonoBehaviour
 
     public void MakeThisChosen()
     {
-        GameObject xx = new GameObject("xx");
-        xx.transform.rotation = this.transform.rotation;
+        
         isChosenShip = true;
         startRecording = true;
         //Dummy
@@ -66,9 +66,8 @@ public class PlayerController : MonoBehaviour
         dumm.transform.position = transform.position;
         Rigidbody2D dummRb = dumm.AddComponent<Rigidbody2D>();
         dummRb.gravityScale = 0;
-
         dumm.transform.rotation = this.transform.rotation;
-       dummyPlayer = dumm;
+        dummyPlayer = dumm;
         GameObject newArk = Instantiate(Ark, dumm.transform.position, dumm.transform.rotation);
         
         
@@ -89,18 +88,18 @@ public class PlayerController : MonoBehaviour
                                                     new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f),
                                                 new GradientAlphaKey(1.0f, 1.0f) });
 
-            cltm.color = grad;
+           // cltm.color = grad;
         }
 
 
 
         //trail
-        //trail.Play();
-        //trail.loop = true;
-        // trail.transform.SetParent(dumm.transform);
-        //trail.transform.localPosition = Vector3.zero;
+        trail.Play();
+        trail.loop = true;
+         trail.transform.SetParent(dumm.transform);
+        trail.transform.localPosition = Vector3.zero;
 
-        //trail
+      
         
         newArk.GetComponent<ArkController>().player = this.gameObject;
         newArk.gameObject.SetActive(true);
