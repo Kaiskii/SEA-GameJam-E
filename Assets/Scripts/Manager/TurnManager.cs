@@ -16,7 +16,7 @@ public class TurnManager : MonoBehaviour
 {
     EnumStateMachine<TurnState> stateMachine = new EnumStateMachine<TurnState>();
     public TurnState currentState { get { return stateMachine.currentState; } }
-
+    public static TurnManager instance;
     [Header("Serialize Time")]
     [SerializeField] public float planningPhaseTime;
     [SerializeField] public float countdownPhaseTime;
@@ -30,6 +30,7 @@ public class TurnManager : MonoBehaviour
     private void Awake()
     {
         Initialize();
+        instance = this;
     }
 
     public void Initialize()

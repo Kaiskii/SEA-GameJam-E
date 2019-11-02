@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1914543864192267513}
   - component: {fileID: 1914543864192267512}
   - component: {fileID: 1914543864192267515}
+  - component: {fileID: 3699970555489168641}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -113,7 +114,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1914543864192267527}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -126,6 +127,32 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!61 &3699970555489168641
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1914543864192267527}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.09}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.25, y: 1.25}
+    newSize: {x: 0.16, y: 0.16}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.11, y: 0.82}
+  m_EdgeRadius: 0
 --- !u!1001 &5880290677848565306
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -137,6 +164,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: templateTrail
+      objectReference: {fileID: 0}
+    - target: {fileID: 5507704899316335153, guid: e4a5fb9f52d1190bd9bab0ea5f737f2c,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5507704899316335154, guid: e4a5fb9f52d1190bd9bab0ea5f737f2c,
         type: 3}
@@ -207,11 +239,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.28708
-      objectReference: {fileID: 0}
-    - target: {fileID: 5507704899316335153, guid: e4a5fb9f52d1190bd9bab0ea5f737f2c,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4a5fb9f52d1190bd9bab0ea5f737f2c, type: 3}
