@@ -21,9 +21,11 @@ public class TurnManager : MonoBehaviour
     [SerializeField] public float planningPhaseTime;
     [SerializeField] public float countdownPhaseTime;
     [SerializeField] public float executionPhaseTime;
-
     private float currentCountdown;
 
+    [SerializeField] public int numberOfShips;
+    private int currentShip
+    
 
     private void Awake()
     {
@@ -33,7 +35,7 @@ public class TurnManager : MonoBehaviour
     public void Initialize()
     {
         stateMachine.AddStateRules(TurnState.Idle, new HashSet<TurnState>() { TurnState.Planning });
-        stateMachine.AddStateRules(TurnState.Planning, new HashSet<TurnState>() { TurnState.Countdown, TurnState.Idle });
+        stateMachine.AddStateRules(TurnState.Planning, new HashSet<TurnState>() { TurnState.Countdown, TurnState.Idle, TurnState.Planning });
         stateMachine.AddStateRules(TurnState.Countdown, new HashSet<TurnState>() { TurnState.Execution, TurnState.Idle });
         stateMachine.AddStateRules(TurnState.Execution, new HashSet<TurnState>() { TurnState.Planning, TurnState.Idle });
 
@@ -70,12 +72,20 @@ public class TurnManager : MonoBehaviour
     #region Core Game Loop
     /// <summary>
     /// Start Player Countdown
-    /// </summary>
+    /// </summary
     [Button]
     public void EndTurn()
     {
-        stateMachine.SafeChangeState(TurnState.Countdown);
-
+        currentShip++;
+        if(currentShip < numberOfShips)
+        {
+            stateMachine.SafeChangeState(TurnState.Planning);
+        }
+        else
+        {
+            currentShip = 0;
+            stateMachine.SafeChangeState(TurnState.Countdown);
+        }
     }
 
     public void EnterExecution()
