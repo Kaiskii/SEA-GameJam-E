@@ -15,9 +15,13 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
 
-        player1Ships = new GameObject[3];
-        player2Ships = new GameObject[3];
+        
     }
 
-   
+    private void Start()
+    {
+        player1Ships[0].GetComponent<PlayerController>().MakeThisChosen();
+    }
+
+
 }

@@ -7,7 +7,7 @@ public enum ShipNumber
 }
 public class ArkController : MonoBehaviour
 {
-    public ShipNumber thisPlayerNumber;
+    public ShipNumber thisPlayerNumber ;
     public GameObject player;
     public Vector3 offSet;
     public float rotationSpeed ;
@@ -16,7 +16,7 @@ public class ArkController : MonoBehaviour
 
     private void Start()
     {
-        rotationSpeed = player.GetComponent<PlayerController>().rotationSpeed;
+       
     }
     void Update()
     {
@@ -25,12 +25,16 @@ public class ArkController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MoveToPlayerPosition();
-        RotateArk();
+        
+        
+
     }
+
+    
     void MoveToPlayerPosition()
     {
         transform.position = player.transform.position + offSet;
+
     }
 
     void RotateArk()
@@ -48,6 +52,6 @@ public class ArkController : MonoBehaviour
 
         
 
-        transform.eulerAngles = new Vector3(0.0f, 0.0f, rotationZ);
+        transform.localEulerAngles = new Vector3(0.0f, 0.0f, rotationZ);
     }
 }
