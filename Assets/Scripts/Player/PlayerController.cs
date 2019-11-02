@@ -56,32 +56,39 @@ public class PlayerController : MonoBehaviour
 
     public void MakeThisChosen()
     {
+        GameObject xx = new GameObject("xx");
+        xx.transform.rotation = this.transform.rotation;
         isChosenShip = true;
         startRecording = true;
         //Dummy
         
         GameObject dumm = new GameObject("DummyPlayer");
         dumm.transform.position = transform.position;
-        dumm.transform.rotation = Quaternion.Euler(transform.eulerAngles);
-        
-        GameObject newArk = Instantiate(Ark);
-        newArk.GetComponent<ArkController>().player = this.gameObject;
-        Rigidbody2D dummRb=dumm.AddComponent<Rigidbody2D>();
+        Rigidbody2D dummRb = dumm.AddComponent<Rigidbody2D>();
         dummRb.gravityScale = 0;
-        dummyPlayer = dumm;
+        dumm.transform.rotation = this.transform.rotation;
+       dummyPlayer = dumm;
+        GameObject newArk = Instantiate(Ark, dumm.transform.position, dumm.transform.rotation);
         
         
+        
+        
+
         //trail
         //trail.Play();
         //trail.loop = true;
-       // trail.transform.SetParent(dumm.transform);
+        // trail.transform.SetParent(dumm.transform);
         //trail.transform.localPosition = Vector3.zero;
 
         //trail
-
+        
+        newArk.GetComponent<ArkController>().player = this.gameObject;
         newArk.gameObject.SetActive(true);
         newArk.transform.SetParent(dumm.transform);
-        newArk.transform.localPosition = Vector3.zero;       
+        newArk.transform.localPosition = Vector3.zero;
+
+        
+
         //
 
     }
@@ -126,14 +133,14 @@ public class PlayerController : MonoBehaviour
             case PlayerNumber.NUMBER1:
                 {
                     rotationZ -= Input.GetAxisRaw("Player1Horizontal") * shipData.turnSpeed;
-                    dummyPlayer.transform.eulerAngles = new Vector3(0, 0, rotationZ);
+                    dummyPlayer.transform.eulerAngles = new Vector3(0, 0,transform.eulerAngles.z+ rotationZ);
 
                     break;
                 }
             case PlayerNumber.NUMBER2:
                 {
                     rotationZ -= Input.GetAxisRaw("Player2Horizontal") * shipData.turnSpeed;
-                    dummyPlayer.transform.eulerAngles = new Vector3(0, 0, rotationZ);
+                    dummyPlayer.transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z+rotationZ);
 
                     break;
                 }
@@ -156,7 +163,7 @@ public class PlayerController : MonoBehaviour
                     movement.y = vInput;
 
                     // if (input.magnitude > 0) Instantiate(trailGO, transform.position, Quaternion.identity);
-                    Vector3 moveDirection = dummyPlayer.transform.up * 1 * shipData.normalSpeed * Time.fixedDeltaTime;
+                    Vector3 moveDirection = dummyPlayer.transform.TransformDirection(Vector3.up) * 1 * shipData.normalSpeed * Time.fixedDeltaTime;
                     Vector2 rbMove = new Vector2(moveDirection.x, moveDirection.y);
 
 
@@ -173,7 +180,7 @@ public class PlayerController : MonoBehaviour
                     movement.y = vInput;
 
                     // if (input.magnitude > 0) Instantiate(trailGO, transform.position, Quaternion.identity);
-                    Vector3 moveDirection = dummyPlayer.transform.up * -1 * shipData.normalSpeed * Time.fixedDeltaTime;
+                    Vector3 moveDirection = dummyPlayer.transform.TransformDirection(Vector3.up) * shipData.normalSpeed * Time.fixedDeltaTime;
                     Vector2 rbMove = new Vector2(moveDirection.x, moveDirection.y);
 
 

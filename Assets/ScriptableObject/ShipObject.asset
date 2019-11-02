@@ -12,3 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee96cc090b95dd0408aa7b3d0eca9b14, type: 3}
   m_Name: ShipObject
   m_EditorClassIdentifier: 
+  shipData:
+    maxHp: 100
+    maxAmmo: 5
+    maxFuel: 100
+    boostSpeed: 0
+    normalSpeed: 10
+    turnSpeed: 1
+    attackAngleArc: 0
+    attackWidth: 0
