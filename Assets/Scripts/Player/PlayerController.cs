@@ -168,7 +168,7 @@ public class PlayerController : MonoBehaviour
                     movement.y = vInput;
 
                     // if (input.magnitude > 0) Instantiate(trailGO, transform.position, Quaternion.identity);
-                    Vector3 moveDirection = dummyPlayer.transform.up * 1 * movementSpeed * Time.fixedDeltaTime;
+                    Vector3 moveDirection = dummyPlayer.transform.up * -1 * movementSpeed * Time.fixedDeltaTime;
                     Vector2 rbMove = new Vector2(moveDirection.x, moveDirection.y);
 
 
