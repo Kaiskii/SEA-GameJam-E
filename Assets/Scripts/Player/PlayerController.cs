@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
         Vector2 input = new Vector2(hInput, vInput);
         movement.x = hInput;
         movement.y = vInput;
-       if (input.magnitude > 0) Instantiate(trailGO, transform.position, Quaternion.identity);
+      // if (input.magnitude > 0) Instantiate(trailGO, transform.position, Quaternion.identity);
        Vector3 moveDirection= transform.up * vInput * movementSpeed * Time.deltaTime;
         Vector2 rbMove = new Vector2(moveDirection.x, moveDirection.y);
         
