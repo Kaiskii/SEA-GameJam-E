@@ -408,6 +408,8 @@ public class PlayerController : MonoBehaviour
                        
                         Destroy(this.gameObject);
                         Destroy(other.gameObject);
+                        GameManager.instance.player1Ships.Remove(this.gameObject);
+                        GameManager.instance.player2Ships.Remove(other.gameObject);
                     }
                    
                     break;
@@ -420,10 +422,44 @@ public class PlayerController : MonoBehaviour
                     {
                         Destroy(this.gameObject);
                         Destroy(other.gameObject);
+                        GameManager.instance.player2Ships.Remove(this.gameObject);
+                        GameManager.instance.player1Ships.Remove(other.gameObject);
                     }
                    
                     break;
                 }
+        }
+
+
+        if(other.tag=="Wall")
+        {
+            switch (playerNumber)
+            {
+                case PlayerNumber.NUMBER1:
+                    {
+                        
+
+                            Destroy(this.gameObject);
+                            
+                           GameManager.instance.player1Ships.Remove(this.gameObject);                         
+                        
+
+                        break;
+                    }
+
+
+                case PlayerNumber.NUMBER2:
+                    {
+                        
+                            Destroy(this.gameObject);
+                            
+                            GameManager.instance.player2Ships.Remove(this.gameObject);
+                            
+                        
+
+                        break;
+                    }
+            }
         }
     }
 }
