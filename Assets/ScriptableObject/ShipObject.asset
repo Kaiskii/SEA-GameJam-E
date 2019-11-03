@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipData:
     maxHp: 100
-    maxAmmo: 2
+    maxAmmo: 5
     maxFuel: 100
     boostSpeed: 0
-    normalSpeed: 8
+    normalSpeed: 7.548
     turnSpeed: 1
     attackAngleArc: 0
     attackWidth: 0

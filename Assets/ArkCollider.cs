@@ -17,9 +17,23 @@ public class ArkCollider : MonoBehaviour
     private void Start()
     {
         shipsInTrigger = new List<PlayerController>();
+       
 
-      
-        
+
+    }
+
+    void SetColor()
+    {
+        switch (parentPlayer.GetComponent<PlayerController>().playerNumber)
+        {
+            case PlayerNumber.NUMBER1:
+                HitArea.color = new Color(0.1792453f, 0.5077058f, 0.7169812f);
+                break;
+            case PlayerNumber.NUMBER2:
+                HitArea.color = new Color(0.6320754f, 0.1818707f, 0.1818707f);
+                break;
+
+        }
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -81,10 +95,13 @@ public class ArkCollider : MonoBehaviour
     public void DoDamageToList()
     {
         if (isUsedAlready) return;
-        parentPlayer.GetComponent<PlayerController>().RespawnLaser();
+        // parentPlayer.GetComponent<PlayerController>().RespawnLaser();
+        GameObject AttackIndicator = Instantiate(this.gameObject, transform.position, transform.rotation);
+        AttackIndicator.SetActive(true);
+        
         foreach (PlayerController obj in shipsInTrigger)
         {
-            obj.GetDamage(51);
+            obj.GetDamage(105);
             
         }
         isUsedAlready = true;
@@ -92,6 +109,7 @@ public class ArkCollider : MonoBehaviour
 
     public void DoFade()
     {
+        SetColor();
         anim.SetBool("PlayFade", true);
     }
 }
