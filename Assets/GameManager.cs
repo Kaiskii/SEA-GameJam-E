@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour, IManager
     [SerializeField] TurnManager turnManager;
     [SerializeField] GameObject resetGameCanvas;
     [SerializeField] EndGameController endGameController;
+    [SerializeField] PauseGameController pauseGameController;
 
     [Header("Player 1")]
     [SerializeField] GameObject player1Prefab;
@@ -63,6 +64,11 @@ public class GameManager : MonoBehaviour, IManager
     {
         if (Input.GetMouseButtonDown(0))
             audioManager.PlayAudioClip("Click", AudioManager.ClipType.SFX);
+
+        if(Input.GetKeyDown(KeyCode.Escape) && turnManager.currentState != TurnState.Idle)
+        {
+            PauseGame();
+        }
     }
     #endregion
 
@@ -323,5 +329,17 @@ public class GameManager : MonoBehaviour, IManager
                 break;
         }
 
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0f;
+        pauseGameController.gameObject.SetActive(true);
+    }
+
+    public void ContinueGame()
+    {
+        Time.timeScale = 1f;
+        pauseGameController.gameObject.SetActive(false);
     }
 }
