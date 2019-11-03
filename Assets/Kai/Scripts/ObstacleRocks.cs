@@ -28,7 +28,7 @@ public class ObstacleRocks : MonoBehaviour
                 shipController.GetDamage(shipController.health);
                 break;
             case ROCK_TYPE.Clusters:
-                shipController.GetDamage(50);
+                shipController.GetDamage(shipController.health);
                 break;
         }
     }
