@@ -92,8 +92,9 @@ public class GameManager : MonoBehaviour, IManager
             }
             
         }
-        if (prevState == TurnState.Countdown && nextState == TurnState.Execution)
+        else if (prevState == TurnState.Countdown && nextState == TurnState.Execution)
         {
+            Debug.Log("0");
             player1Ships[0].GetComponent<PlayerController>().EndTurn();
             player2Ships[0].GetComponent<PlayerController>().EndTurn();
             player1Ships.RemoveAt(0);
@@ -101,6 +102,7 @@ public class GameManager : MonoBehaviour, IManager
             foreach (GameObject obj in tempplayer1Ships)
             {
                 obj.GetComponent<PlayerController>().goToRecording = true;
+                Debug.Log("1");
             }
             foreach (GameObject obj in tempplayer2Ships)
             {

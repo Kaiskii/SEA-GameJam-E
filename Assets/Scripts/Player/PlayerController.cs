@@ -29,7 +29,20 @@ public class PlayerController : MonoBehaviour
     private float fuel;
     private float ammo;
     private float fakeAmmo;
-    [SerializeField] TurnManager turnManager;
+
+    [SerializeField] TurnManager _turnManager;
+
+    TurnManager turnManager
+    {
+        get
+        {
+            return (_turnManager) ?? (_turnManager = Toolbox.Instance.FindManager<TurnManager>());
+        }
+        set
+        {
+            _turnManager = value;
+        }
+    }
 
     List<PositionRecords> allPositionRecords;
 
@@ -40,16 +53,14 @@ public class PlayerController : MonoBehaviour
         fuel = shipData.maxFuel;
         ammo = shipData.maxAmmo;
         fakeAmmo = shipData.maxAmmo;
+       
 
 
     }
 
-    public void InitializeManager()
+    public void InitializeController()
     {
-        if (turnManager == null)
-        {
-            turnManager = Toolbox.Instance.FindManager<TurnManager>();
-        }
+
     }
 
     void Start()
@@ -57,7 +68,7 @@ public class PlayerController : MonoBehaviour
         allPositionRecords = new List<PositionRecords>();
         Ark.gameObject.SetActive(false);
         trail = transform.Find("templateTrail").GetComponent<ParticleSystem>();
-        
+        InitializeController();
     }
 
     
@@ -65,13 +76,13 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isChosenShip) return;
+        if (!isChosenShip && !goToRecording) return;
+        else if (goToRecording && turnManager.currentState==TurnState.Execution) GoToRecordMovements();
+        
         if (startRecording) RecordMovements();
-        if (goToRecording && turnManager.currentState==TurnState.Execution) GoToRecordMovements();
-        
 
-        
-       if(!goToRecording) RotateDummy();
+
+        if (!goToRecording) RotateDummy();
         CheckForShoot();
 
     }
@@ -336,11 +347,15 @@ public class PositionRecords
     
         public Vector3 position;
          public Vector3 rotation;
-
+    public bool isShot;
 
         public PositionRecords(Vector3 pos,Vector3 rot)
         {
             position = pos;
             rotation = rot;
         }
-    }
+        public PositionRecords(Vector3 shootloc)
+         {
+             shootLocation = shootloc;
+        }
+}
