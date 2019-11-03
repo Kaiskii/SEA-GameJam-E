@@ -106,7 +106,17 @@ public class GameManager : MonoBehaviour, IManager
 
     public void DestroyAllShip()
     {
+        foreach(PlayerController controller in player1Ships)
+        {
+            Destroy(controller.gameObject);
+        }
+        foreach(PlayerController controller in player2Ships)
+        {
+            Destroy(controller.gameObject);
+        }
 
+        player1Ships.Clear();
+        player2Ships.Clear();
     }
 
 
