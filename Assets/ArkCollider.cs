@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using CarrotEngine;
+
 public class ArkCollider : MonoBehaviour
 {
     public int attackNum;
@@ -12,13 +14,15 @@ public class ArkCollider : MonoBehaviour
     public bool isUsedAlready = false;
     private List<PlayerController> shipsInTrigger;
     public SpriteRenderer HitArea;
-    
+
+    AudioManager am;
 
     private void Start()
     {
         shipsInTrigger = new List<PlayerController>();
-       
 
+        if (am == null)
+            am = Toolbox.Instance.FindManager<AudioManager>();
 
     }
 
@@ -95,6 +99,7 @@ public class ArkCollider : MonoBehaviour
     public void DoDamageToList()
     {
         if (isUsedAlready) return;
+        //am.PlayAudioClip("execFire", AudioManager.ClipType.SFX);
         // parentPlayer.GetComponent<PlayerController>().RespawnLaser();
         GameObject AttackIndicator = Instantiate(this.gameObject, transform.position, transform.rotation);
         AttackIndicator.SetActive(true);
