@@ -347,15 +347,12 @@ public class PositionRecords
     
         public Vector3 position;
          public Vector3 rotation;
-    public bool isShot;
+        public bool isShot;
 
         public PositionRecords(Vector3 pos,Vector3 rot)
         {
             position = pos;
             rotation = rot;
         }
-        public PositionRecords(Vector3 shootloc)
-         {
-             shootLocation = shootloc;
-        }
+       
 }
