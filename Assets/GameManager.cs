@@ -35,8 +35,10 @@ public class GameManager : MonoBehaviour, IManager
         
 
     }
-    public void StartGame()
+    public void StartGame(GameObject mainMenuCanvas)
     {
+        mainMenuCanvas.SetActive(false);
+
         turnManager.StartGame();
         am.PlayAudioClip("inGameBGM", AudioManager.ClipType.BGM);
     }
