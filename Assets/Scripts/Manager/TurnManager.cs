@@ -21,7 +21,7 @@ public class TurnManager : MonoBehaviour, IManager
     [SerializeField] public float planningPhaseTime;
     [SerializeField] public float countdownPhaseTime;
     [SerializeField] public float executionPhaseTime;
-    private float currentCountdown;
+    public float currentCountdown { get; private set; }
 
     [SerializeField] public int numberOfShips;
     private int currentShipAccessed;
