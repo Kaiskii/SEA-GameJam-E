@@ -39,6 +39,8 @@ public class PlayerController : MonoBehaviour
     bool inputFakeShot = false;
     bool inputRealShot = false;
 
+    AudioManager am;
+
     TurnManager turnManager
     {
         get
@@ -72,6 +74,9 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        if (am == null)
+            am = Toolbox.Instance.FindManager<AudioManager>();
+
         allPositionRecords = new List<PositionRecords>();
         Ark.gameObject.SetActive(false);
         
@@ -277,6 +282,7 @@ public class PlayerController : MonoBehaviour
      void Shoot()
     {
         Debug.Log("Shoot");
+        am.PlayAudioClip("plannedFire", AudioManager.ClipType.SFX);
         arkAttackNum++;
         ownArk.GetComponent<ArkController>().ActivateAttackArea(false, arkAttackNum);
         canShoot = false;
@@ -289,6 +295,7 @@ public class PlayerController : MonoBehaviour
     void FakeShoot()
     {
         Debug.Log("FakeShoot");
+        am.PlayAudioClip("plannedFire", AudioManager.ClipType.SFX);
         arkAttackNum++;
         ownArk.GetComponent<ArkController>().ActivateAttackArea(true, arkAttackNum);
         canShoot = false;
@@ -311,6 +318,7 @@ public class PlayerController : MonoBehaviour
                     {
                         gameManager.player1Ships.Remove(this);
                         Instantiate(gameManager.explostionPrefab, this.transform.position, Quaternion.identity);
+                        //am.PlayAudioClip("shipExplode", AudioManager.ClipType.SFX);
                         Destroy(this);
 
                         break;
@@ -321,6 +329,7 @@ public class PlayerController : MonoBehaviour
                     {
                         gameManager.player2Ships.Remove(this);
                         Instantiate(gameManager.explostionPrefab, this.transform.position, Quaternion.identity);
+                        //am.PlayAudioClip("shipExplode", AudioManager.ClipType.SFX);
                         Destroy(this);
                         //
                         break;
@@ -418,6 +427,7 @@ public class PlayerController : MonoBehaviour
                         
                         Instantiate(gameManager.explostionPrefab, transform.position, Quaternion.identity);
                         Instantiate(gameManager.explostionPrefab, other.transform.position, Quaternion.identity);
+                        //am.PlayAudioClip("shipExplode", AudioManager.ClipType.SFX);
                         Destroy(this.gameObject);
                         Destroy(other.gameObject);
                     }
@@ -427,6 +437,7 @@ public class PlayerController : MonoBehaviour
                         
                         gameManager.player1Ships.Remove(this);
                         Instantiate(gameManager.explostionPrefab, transform.position, Quaternion.identity);
+                        //am.PlayAudioClip("shipExplode", AudioManager.ClipType.SFX);
                         Destroy(this.gameObject);
                     }
                    
@@ -443,6 +454,7 @@ public class PlayerController : MonoBehaviour
                         
                         Instantiate(gameManager.explostionPrefab, transform.position, Quaternion.identity);
                         Instantiate(gameManager.explostionPrefab, other.transform.position, Quaternion.identity);
+                        //am.PlayAudioClip("shipExplode", AudioManager.ClipType.SFX);
                         Destroy(this.gameObject);
                         Destroy(other.gameObject);
 
@@ -451,6 +463,7 @@ public class PlayerController : MonoBehaviour
                     {
                         gameManager.player2Ships.Remove(this);
                         Instantiate(gameManager.explostionPrefab, transform.position, Quaternion.identity);
+                        //am.PlayAudioClip("shipExplode", AudioManager.ClipType.SFX);
                         Destroy(this.gameObject);
                         
                         
