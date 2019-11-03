@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour, IManager
     [SerializeField] AudioManager audioManager;
     [SerializeField] TurnManager turnManager;
     [SerializeField] GameObject resetGameCanvas;
+    [SerializeField] EndGameController endGameController;
 
     [Header("Player 1")]
     [SerializeField] GameObject player1Prefab;
@@ -110,6 +111,15 @@ public class GameManager : MonoBehaviour, IManager
         }
     }
 
+
+    public void TriggerTutorial(GameObject canvas) {
+        canvas.GetComponent<Animator>().SetTrigger("Play");
+    }
+
+    public void ExitTutorial(GameObject canvas) {
+        canvas.GetComponent<Animator>().SetTrigger("End");
+    }
+
     public void DestroyAllShip()
     {
         foreach(PlayerController controller in player1Ships)
@@ -124,7 +134,6 @@ public class GameManager : MonoBehaviour, IManager
         player1Ships.Clear();
         player2Ships.Clear();
     }
-
 
     void CheckChangeStateIdleToPlanning(TurnState prevState, TurnState nextState)
     {
@@ -298,14 +307,17 @@ public class GameManager : MonoBehaviour, IManager
         {
             case 0:
                 Debug.LogWarning("TIE GAME");
+                endGameController.setPlayerWin(0);
                 break;
 
             case 1:
                 Debug.LogWarning("PLAYER 1 WIN");
+                endGameController.setPlayerWin(1);
                 break;
 
             case 2:
                 Debug.LogWarning("PLAYER 2 WIN");
+                endGameController.setPlayerWin(2);
                 break;
         }
 
