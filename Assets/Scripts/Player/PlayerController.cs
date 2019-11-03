@@ -148,9 +148,6 @@ public class PlayerController : MonoBehaviour
 
     public void MakeThisChosen()
     {
-
-        Debug.Log("CHOSEN: " + this.GetInstanceID());
-
         isChosenShip = true;
         startRecording = true;
         //Dummy
