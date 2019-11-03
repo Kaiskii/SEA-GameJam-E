@@ -123,6 +123,7 @@ public class PlayerController : MonoBehaviour
 
         dummyPlayer = dumm;
 
+
         //Assigning ColorOverLifeTimeModule
         ParticleSystem.ColorOverLifetimeModule cltm = trail.colorOverLifetime;
 
@@ -130,12 +131,13 @@ public class PlayerController : MonoBehaviour
         if (playerNumber == PlayerNumber.NUMBER1) {
             //Gradient Initialization
             Gradient grad = new Gradient();
-            grad.SetKeys(new GradientColorKey[] { new GradientColorKey(new Color(0.78f, 0.18f, 0.2f), 0.0f),
-                                              new GradientColorKey(new Color(0.5f, 0.5f, 0.5f), 1.0f) },
-                                                    new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f),
-                                                new GradientAlphaKey(1.0f, 1.0f) });
+            grad.SetKeys(new GradientColorKey[] { new GradientColorKey(new Color(0.17f, 0.68f, 0.78f), 0.0f),
+                                              new GradientColorKey(new Color(0.17f, 0.68f, 0.78f), 1.0f) },
+                                                    new GradientAlphaKey[] { new GradientAlphaKey(0.8f, 0.0f),
+                                                    new GradientAlphaKey(0.8f, 0.9f),
+                                                new GradientAlphaKey(0.0f, 1.0f) });
 
-           // cltm.color = grad;
+            cltm.color = grad;
         }
 
 

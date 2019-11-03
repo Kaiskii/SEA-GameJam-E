@@ -926,7 +926,7 @@ MonoBehaviour:
   - {fileID: 1143902848}
   - {fileID: 183127067}
   - {fileID: 490342777}
-  SecondsForEachTurn: 0.9
+  SecondsForEachTurn: 5
   tempplayer1Ships:
   - {fileID: 932804367}
   - {fileID: 2071904631}
@@ -963,10 +963,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09cc394da253b4944981706d974c0ee7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planningPhaseTime: 0
+  planningPhaseTime: 5
   countdownPhaseTime: 0
-  executionPhaseTime: 0
-  numberOfShips: 0
+  executionPhaseTime: 5
+  numberOfShips: 3
 --- !u!1001 &1468247598
 PrefabInstance:
   m_ObjectHideFlags: 0
