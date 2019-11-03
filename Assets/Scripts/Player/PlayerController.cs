@@ -143,7 +143,9 @@ public class PlayerController : MonoBehaviour
 
     public void MakeThisChosen()
     {
-        
+
+        Debug.Log("CHOSEN: " + this.GetInstanceID());
+
         isChosenShip = true;
         startRecording = true;
         //Dummy
@@ -171,7 +173,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-
+        
         //trail
         ParticleSystem newTrail = Instantiate(trail, newArk.transform.position, transform.rotation);
         ParticleSystem.ColorOverLifetimeModule cltm = newTrail.colorOverLifetime;
@@ -307,8 +309,8 @@ public class PlayerController : MonoBehaviour
             {
                 case PlayerNumber.NUMBER1:
                     {
+                        gameManager.player1Ships.Remove(this);
                         Destroy(this);
-                        //gameManager.player1Ships.Remove(this);
 
                         break;
                     }
@@ -316,8 +318,9 @@ public class PlayerController : MonoBehaviour
 
                 case PlayerNumber.NUMBER2:
                     {
+                        gameManager.player2Ships.Remove(this);
                         Destroy(this);
-                        //gameManager.player2Ships.Remove(this);
+                        //
                         break;
                     }
             }
@@ -408,11 +411,16 @@ public class PlayerController : MonoBehaviour
                 {
                     if (other.gameObject.tag == "Player2")
                     {
-                       
+                        gameManager.player1Ships.Remove(this);
+                        gameManager.player2Ships.Remove(other.GetComponent<PlayerController>());
                         Destroy(this.gameObject);
                         Destroy(other.gameObject);
-                        GameManager.instance.player1Ships.Remove(this.gameObject);
-                        GameManager.instance.player2Ships.Remove(other.gameObject);
+                    }
+
+                    if(other.gameObject.tag=="Wall")
+                    {
+                        Destroy(this.gameObject);
+                        gameManager.player1Ships.Remove(this);
                     }
                    
                     break;
@@ -423,46 +431,19 @@ public class PlayerController : MonoBehaviour
                 {
                     if (other.gameObject.tag == "Player1")
                     {
+                        gameManager.player2Ships.Remove(this);
+                        gameManager.player1Ships.Remove(other.GetComponent<PlayerController>());
                         Destroy(this.gameObject);
                         Destroy(other.gameObject);
-                        GameManager.instance.player2Ships.Remove(this.gameObject);
-                        GameManager.instance.player1Ships.Remove(other.gameObject);
                     }
-                   
+                    if (other.gameObject.tag == "Wall")
+                    {
+                        Destroy(this.gameObject);
+                        gameManager.player2Ships.Remove(this);
+                    }
+
                     break;
                 }
-        }
-
-
-        if(other.tag=="Wall")
-        {
-            switch (playerNumber)
-            {
-                case PlayerNumber.NUMBER1:
-                    {
-                        
-
-                            Destroy(this.gameObject);
-                            
-                           GameManager.instance.player1Ships.Remove(this.gameObject);                         
-                        
-
-                        break;
-                    }
-
-
-                case PlayerNumber.NUMBER2:
-                    {
-                        
-                            Destroy(this.gameObject);
-                            
-                            GameManager.instance.player2Ships.Remove(this.gameObject);
-                            
-                        
-
-                        break;
-                    }
-            }
         }
     }
 }

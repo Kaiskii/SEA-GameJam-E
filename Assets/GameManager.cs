@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour, IManager
         turnManager.stateMachine.OnChangeStateEvent += CheckChangeStateCountdownToExecution;
         turnManager.stateMachine.OnChangeStateEvent += CheckChangeStateExecutionToPlanning;
 
+        turnManager.stateMachine.RegisterOnEnter(TurnState.Planning, CheckEndGame);
         turnManager.stateMachine.RegisterOnExit(TurnState.Execution, CheckEndGame);
     }
 
@@ -91,15 +92,17 @@ public class GameManager : MonoBehaviour, IManager
         player2Ships.Clear();
         foreach(Transform spawnLocation in player1SpawnLocation)
         {
-            Instantiate(player1Prefab, spawnLocation).transform.parent = null;
-            PlayerController playerController = player1Prefab.GetComponent<PlayerController>();
+            PlayerController instantiatedObject = Instantiate(player1Prefab, spawnLocation).GetComponent<PlayerController>();
+            instantiatedObject.transform.parent = null;
+            PlayerController playerController = instantiatedObject.GetComponent<PlayerController>();
             player1Ships.Add(playerController);
         }
 
         foreach(Transform spawnLocation in player2SpawnLocation)
         {
-            Instantiate(player1Prefab, spawnLocation).transform.parent = null;
-            PlayerController playerController = player2Prefab.GetComponent<PlayerController>();
+            PlayerController instantiatedObject = Instantiate(player2Prefab, spawnLocation).GetComponent<PlayerController>();
+            instantiatedObject.transform.parent = null;
+            PlayerController playerController = instantiatedObject.GetComponent<PlayerController>();
             player2Ships.Add(playerController);
         }
     }
