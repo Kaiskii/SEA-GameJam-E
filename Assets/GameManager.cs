@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour, IManager
 
     public void ResetGame()
     {
-        // Destroy all ships in scene
+        DestroyAllShip();
 
         StartGame(mainMenuCanvas);
     }
@@ -102,6 +102,11 @@ public class GameManager : MonoBehaviour, IManager
             PlayerController playerController = player2Prefab.GetComponent<PlayerController>();
             player2Ships.Add(playerController);
         }
+    }
+
+    public void DestroyAllShip()
+    {
+
     }
 
 
