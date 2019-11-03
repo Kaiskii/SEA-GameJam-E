@@ -49,6 +49,7 @@ public class EndGameController : MonoBehaviour
 
     public void MainMenu()
     {
+        
     }
 
 }
