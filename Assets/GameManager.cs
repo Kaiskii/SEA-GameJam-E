@@ -52,11 +52,17 @@ public class GameManager : MonoBehaviour, IManager
 
 
     }
+<<<<<<< HEAD
     
     
     
     public void StartGame()
+=======
+    public void StartGame(GameObject mainMenuCanvas)
+>>>>>>> e65a2ff78ba7fb39c8d70ed66728ea447c1f772b
     {
+        mainMenuCanvas.SetActive(false);
+
         turnManager.StartGame();
         am.PlayAudioClip("inGameBGM", AudioManager.ClipType.BGM);
     }
