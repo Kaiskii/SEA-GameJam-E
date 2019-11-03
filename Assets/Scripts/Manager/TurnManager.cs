@@ -14,8 +14,9 @@ public enum TurnState
 
 public class TurnManager : MonoBehaviour, IManager
 {
-    EnumStateMachine<TurnState> stateMachine = new EnumStateMachine<TurnState>();
+    public EnumStateMachine<TurnState> stateMachine = new EnumStateMachine<TurnState>();
     public TurnState currentState { get { return stateMachine.currentState; } }
+
     [Header("Serialize Time")]
     [SerializeField] public float planningPhaseTime;
     [SerializeField] public float countdownPhaseTime;
@@ -25,11 +26,7 @@ public class TurnManager : MonoBehaviour, IManager
     [SerializeField] public int numberOfShips;
     private int currentShip;
     
-
-    //private void Awake()
-    //{
-    //    Initialize();
-    //}
+    
 
 
     public void InitializeManager()
@@ -59,7 +56,6 @@ public class TurnManager : MonoBehaviour, IManager
                 break;
         }
     }
-
 
 
     [Button]
