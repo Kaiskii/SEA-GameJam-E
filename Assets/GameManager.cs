@@ -19,8 +19,8 @@ public class GameManager : MonoBehaviour
     public List<GameObject> tempplayer2Ships;
     private float eachShipTimer;
     private float countDownTimer;
-    private int roundsPlayed = 0;
-    bool didCountDown = false;
+    
+    
 
     private void Update()
     {
@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
             {
                 eachShipTimer = 0;
                 DoAction();
-                roundsPlayed++;
+                
             }
         }
        else if (TurnManager.instance.currentState == TurnState.Countdown)
@@ -67,8 +67,12 @@ public class GameManager : MonoBehaviour
             player2Ships[0].GetComponent<PlayerController>().EndTurn();
             player1Ships.RemoveAt(0);
             player2Ships.RemoveAt(0);
-            player1Ships[0].GetComponent<PlayerController>().MakeThisChosen();
-            player2Ships[0].GetComponent<PlayerController>().MakeThisChosen();
+            if(player1Ships.Count != 0 && player2Ships.Count != 0)
+            {
+                player1Ships[0].GetComponent<PlayerController>().MakeThisChosen();
+                player2Ships[0].GetComponent<PlayerController>().MakeThisChosen();
+            }
+            
         }
             
         else

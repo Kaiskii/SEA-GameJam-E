@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!isChosenShip) return;
         if (startRecording) RecordMovements();
-        if (goToRecording) GoToRecordMovements();
+        if (goToRecording && TurnManager.instance.currentState==TurnState.Execution) GoToRecordMovements();
         
 
         
