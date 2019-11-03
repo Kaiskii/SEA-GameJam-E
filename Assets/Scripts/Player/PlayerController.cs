@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     private float ammo;
     private float fakeAmmo;
 
+    [SerializeField] GameManager gameManager { get { return Toolbox.Instance.FindManager<GameManager>(); } }
     [SerializeField] TurnManager _turnManager;
 
     bool inputFakeShot = false;
@@ -306,7 +307,8 @@ public class PlayerController : MonoBehaviour
             {
                 case PlayerNumber.NUMBER1:
                     {
-                        GameManager.instance.player1Ships.Remove(this.gameObject);
+                        Destroy(this);
+                        //gameManager.player1Ships.Remove(this);
 
                         break;
                     }
@@ -314,7 +316,8 @@ public class PlayerController : MonoBehaviour
 
                 case PlayerNumber.NUMBER2:
                     {
-                        GameManager.instance.player2Ships.Remove(this.gameObject);
+                        Destroy(this);
+                        //gameManager.player2Ships.Remove(this);
                         break;
                     }
             }
