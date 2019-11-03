@@ -17,7 +17,7 @@ MonoBehaviour:
     maxAmmo: 2
     maxFuel: 100
     boostSpeed: 0
-    normalSpeed: 10
+    normalSpeed: 8
     turnSpeed: 1
     attackAngleArc: 0
     attackWidth: 0

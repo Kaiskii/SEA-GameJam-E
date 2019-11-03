@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using CarrotEngine;
 /*public enum ShipNumber
 {
     NUMBER1, NUMBER2, NUMBER3, NUMBER4
@@ -28,8 +29,8 @@ public class PlayerController : MonoBehaviour
     private float fuel;
     private float ammo;
     private float fakeAmmo;
-    
-    
+    [SerializeField] TurnManager turnManager;
+
     List<PositionRecords> allPositionRecords;
 
     void Awake()
@@ -41,6 +42,14 @@ public class PlayerController : MonoBehaviour
         fakeAmmo = shipData.maxAmmo;
 
 
+    }
+
+    public void InitializeManager()
+    {
+        if (turnManager == null)
+        {
+            turnManager = Toolbox.Instance.FindManager<TurnManager>();
+        }
     }
 
     void Start()
@@ -58,7 +67,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!isChosenShip) return;
         if (startRecording) RecordMovements();
-        if (goToRecording && TurnManager.instance.currentState==TurnState.Execution) GoToRecordMovements();
+        if (goToRecording && turnManager.currentState==TurnState.Execution) GoToRecordMovements();
         
 
         

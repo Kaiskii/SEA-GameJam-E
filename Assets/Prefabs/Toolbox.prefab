@@ -43,10 +43,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09cc394da253b4944981706d974c0ee7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planningPhaseTime: 0
+  planningPhaseTime: 5
   countdownPhaseTime: 0
-  executionPhaseTime: 0
-  numberOfShips: 0
+  executionPhaseTime: 5
+  numberOfShips: 3
 --- !u!1 &2879181742379103709
 GameObject:
   m_ObjectHideFlags: 0
