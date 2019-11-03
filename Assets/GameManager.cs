@@ -45,7 +45,8 @@ public class GameManager : MonoBehaviour, IManager
 
     private void Update()
     {
-       
+        if (Input.GetMouseButtonDown(0))
+            am.PlayAudioClip("Click", AudioManager.ClipType.SFX);
     }
 
     public void InitializeManager()
@@ -137,7 +138,6 @@ public class GameManager : MonoBehaviour, IManager
        
 
     }
-    
    
 
    
