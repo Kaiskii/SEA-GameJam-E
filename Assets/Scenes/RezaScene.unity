@@ -548,8 +548,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2eb75fb088afdd528c6a1b5030bdbb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  darkRed: {r: 0.78431374, g: 0.11764706, b: 0.11764706, a: 0}
-  dirtyWhite: {r: 0.8207547, g: 0.8207547, b: 0.8207547, a: 0}
+  darkRed: {r: 0.78431374, g: 0.11764706, b: 0.11764706, a: 1}
+  dirtyWhite: {r: 0.8207547, g: 0.8207547, b: 0.8207547, a: 1}
   turnRed: 3
 --- !u!1 &633388065
 GameObject:
