@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using CarrotEngine;
+using Sirenix.OdinInspector;
 
 public enum PlayerNumber
 {
@@ -11,11 +12,11 @@ public enum PlayerNumber
 
 public class GameManager : MonoBehaviour, IManager
 {    
-    public List<PlayerController> player1Ships; //Ship Size
-    public List<PlayerController> player2Ships;
+    [HideInInspector] public List<PlayerController> player1Ships; //Ship Size
+    [HideInInspector] public List<PlayerController> player2Ships;
     public float SecondsForEachTurn;
-    public List<PlayerController> tempplayer1Ships; //Ship Size
-    public List<PlayerController> tempplayer2Ships;
+    [HideInInspector] public List<PlayerController> tempplayer1Ships; //Ship Size
+    [HideInInspector] public List<PlayerController> tempplayer2Ships;
     private float eachShipTimer;
     private float countDownTimer;
     public GameObject explostionPrefab;
@@ -23,6 +24,8 @@ public class GameManager : MonoBehaviour, IManager
 
     [SerializeField] AudioManager audioManager;
     [SerializeField] TurnManager turnManager;
+    [SerializeField] GameObject resetGameCanvas;
+    [SerializeField] EndGameController endGameController;
 
     [Header("Player 1")]
     [SerializeField] GameObject player1Prefab;
@@ -81,9 +84,10 @@ public class GameManager : MonoBehaviour, IManager
         audioManager.PlayAudioClip("inGameBGM", AudioManager.ClipType.BGM);
     }
 
+    [Button]
     public void ResetGame()
     {
-        // Destroy all ships in scene
+        DestroyAllShip();
 
         StartGame(mainMenuCanvas);
     }
@@ -109,6 +113,29 @@ public class GameManager : MonoBehaviour, IManager
         }
     }
 
+
+    public void TriggerTutorial(GameObject canvas) {
+        canvas.GetComponent<Animator>().SetTrigger("Play");
+    }
+
+    public void ExitTutorial(GameObject canvas) {
+        canvas.GetComponent<Animator>().SetTrigger("End");
+    }
+
+    public void DestroyAllShip()
+    {
+        foreach(PlayerController controller in player1Ships)
+        {
+            Destroy(controller.gameObject);
+        }
+        foreach(PlayerController controller in player2Ships)
+        {
+            Destroy(controller.gameObject);
+        }
+
+        player1Ships.Clear();
+        player2Ships.Clear();
+    }
 
     void CheckChangeStateIdleToPlanning(TurnState prevState, TurnState nextState)
     {
@@ -256,15 +283,45 @@ public class GameManager : MonoBehaviour, IManager
 
     void CheckEndGame()
     {
-        if(player1Ships.Count <= 0)
+        if(player1Ships.Count <= 0 && player2Ships.Count <= 0)
         {
             turnManager.EndGame();
-            Debug.LogWarning("END GAME");
+            EndGame(0);
+        }
+        else if(player1Ships.Count <= 0)
+        {
+            turnManager.EndGame();
+            EndGame(1);
         }
         else if(player2Ships.Count <= 0)
         {
             turnManager.EndGame();
-            Debug.LogWarning("END GAME");
+            EndGame(2);
         }
+    }
+
+    void EndGame(int playerWinNum)
+    {
+        Debug.LogWarning("END GAME");
+        DestroyAllShip();
+
+        switch(playerWinNum)
+        {
+            case 0:
+                Debug.LogWarning("TIE GAME");
+                endGameController.setPlayerWin(0);
+                break;
+
+            case 1:
+                Debug.LogWarning("PLAYER 1 WIN");
+                endGameController.setPlayerWin(1);
+                break;
+
+            case 2:
+                Debug.LogWarning("PLAYER 2 WIN");
+                endGameController.setPlayerWin(2);
+                break;
+        }
+
     }
 }
