@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using CarrotEngine;
+using Sirenix.OdinInspector;
 
 public enum PlayerNumber
 {
@@ -79,6 +80,7 @@ public class GameManager : MonoBehaviour, IManager
         audioManager.PlayAudioClip("inGameBGM", AudioManager.ClipType.BGM);
     }
 
+    [Button]
     public void ResetGame()
     {
         DestroyAllShip();
@@ -272,7 +274,7 @@ public class GameManager : MonoBehaviour, IManager
         if(player1Ships.Count <= 0 && player2Ships.Count <= 0)
         {
             turnManager.EndGame();
-            EndGame(0, true);
+            EndGame(0);
         }
         else if(player1Ships.Count <= 0)
         {
