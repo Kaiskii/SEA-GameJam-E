@@ -51,7 +51,7 @@ namespace CarrotEngine
             if (bgmManager == null)
             {
                 bgmManager = new GameObject("BGM Manager");
-                bgmGuid = new Guid();
+                bgmGuid = Guid.NewGuid();
                 bgmAudioSource = bgmManager.AddComponent<AudioSource>();
                 bgmManager.transform.parent = transform;
             }
@@ -154,7 +154,7 @@ namespace CarrotEngine
                     return Guid.Empty;
             }
 
-            Guid newKey = new Guid();
+            Guid newKey = Guid.NewGuid();
             foreach(Guid key in audioDictRef.Keys)
             {
                 if (audioDictRef[key].isPlaying)
