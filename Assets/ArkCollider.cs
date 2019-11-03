@@ -101,7 +101,8 @@ public class ArkCollider : MonoBehaviour
         if (isUsedAlready) return;
         //am.PlayAudioClip("execFire", AudioManager.ClipType.SFX);
         // parentPlayer.GetComponent<PlayerController>().RespawnLaser();
-        GameObject AttackIndicator = Instantiate(this.gameObject, transform.position, transform.rotation);
+        GameObject AttackIndicator = Instantiate(this.gameObject, transform.position, transform.rotation)as  GameObject;
+        AttackIndicator.transform.parent = null;
         AttackIndicator.SetActive(true);
         
         foreach (PlayerController obj in shipsInTrigger)
