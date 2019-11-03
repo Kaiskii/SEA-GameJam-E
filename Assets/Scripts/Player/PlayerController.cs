@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator ShootDelay()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.4f);
         canShoot = true;
     }
     void CheckForShoot()
@@ -310,6 +310,7 @@ public class PlayerController : MonoBehaviour
                 case PlayerNumber.NUMBER1:
                     {
                         gameManager.player1Ships.Remove(this);
+                        Instantiate(gameManager.explostionPrefab, this.transform.position, Quaternion.identity);
                         Destroy(this);
 
                         break;
@@ -319,6 +320,7 @@ public class PlayerController : MonoBehaviour
                 case PlayerNumber.NUMBER2:
                     {
                         gameManager.player2Ships.Remove(this);
+                        Instantiate(gameManager.explostionPrefab, this.transform.position, Quaternion.identity);
                         Destroy(this);
                         //
                         break;
@@ -413,14 +415,20 @@ public class PlayerController : MonoBehaviour
                     {
                         gameManager.player1Ships.Remove(this);
                         gameManager.player2Ships.Remove(other.GetComponent<PlayerController>());
+                       
+                        
+                        Instantiate(gameManager.explostionPrefab, transform.position, Quaternion.identity);
+                        Instantiate(gameManager.explostionPrefab, other.transform.position, Quaternion.identity);
                         Destroy(this.gameObject);
                         Destroy(other.gameObject);
                     }
 
                     if(other.gameObject.tag=="Wall")
                     {
-                        Destroy(this.gameObject);
+                        
                         gameManager.player1Ships.Remove(this);
+                        Instantiate(gameManager.explostionPrefab, transform.position, Quaternion.identity);
+                        Destroy(this.gameObject);
                     }
                    
                     break;
@@ -433,13 +441,20 @@ public class PlayerController : MonoBehaviour
                     {
                         gameManager.player2Ships.Remove(this);
                         gameManager.player1Ships.Remove(other.GetComponent<PlayerController>());
+                        
+                        Instantiate(gameManager.explostionPrefab, transform.position, Quaternion.identity);
+                        Instantiate(gameManager.explostionPrefab, other.transform.position, Quaternion.identity);
                         Destroy(this.gameObject);
                         Destroy(other.gameObject);
+
                     }
                     if (other.gameObject.tag == "Wall")
                     {
-                        Destroy(this.gameObject);
                         gameManager.player2Ships.Remove(this);
+                        Instantiate(gameManager.explostionPrefab, transform.position, Quaternion.identity);
+                        Destroy(this.gameObject);
+                        
+                        
                     }
 
                     break;
