@@ -19,28 +19,24 @@ public class GameManager : MonoBehaviour, IManager
     private float eachShipTimer;
     public static GameManager instance;
     private float countDownTimer;
+
+    AudioManager am;
+
     void SetToAvailableShips()
     {
         tempplayer1Ships = new List<GameObject>(player1Ships);
         tempplayer2Ships = new List<GameObject>(player2Ships);
-
-<<<<<<< HEAD
     }
+
     private void Awake()
     {
         instance = this;
     }
-=======
-    AudioManager am;
 
->>>>>>> 5bcff935c7694cd160b156a20c313077a6b9c96f
     private void Start()
     {
         SetToAvailableShips();
 
-
-<<<<<<< HEAD
-=======
         if(am == null)
             am = Toolbox.Instance.FindManager<AudioManager>();
 
@@ -48,18 +44,11 @@ public class GameManager : MonoBehaviour, IManager
 
         tempplayer1Ships = new List<GameObject>(player1Ships);
         tempplayer2Ships = new List<GameObject>(player2Ships);
->>>>>>> 5bcff935c7694cd160b156a20c313077a6b9c96f
-
-
     }
-<<<<<<< HEAD
     
     
     
-    public void StartGame()
-=======
     public void StartGame(GameObject mainMenuCanvas)
->>>>>>> e65a2ff78ba7fb39c8d70ed66728ea447c1f772b
     {
         mainMenuCanvas.SetActive(false);
 
