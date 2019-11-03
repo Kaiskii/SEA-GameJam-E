@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour, IManager
     public List<PlayerController> tempplayer2Ships;
     private float eachShipTimer;
     private float countDownTimer;
+    public GameObject explostionPrefab;
+    public GameObject DamageLaser;
 
     [SerializeField] AudioManager audioManager;
     [SerializeField] TurnManager turnManager;
