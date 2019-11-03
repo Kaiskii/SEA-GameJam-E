@@ -269,15 +269,42 @@ public class GameManager : MonoBehaviour, IManager
 
     void CheckEndGame()
     {
-        if(player1Ships.Count <= 0)
+        if(player1Ships.Count <= 0 && player2Ships.Count <= 0)
         {
             turnManager.EndGame();
-            Debug.LogWarning("END GAME");
+            EndGame(0, true);
+        }
+        else if(player1Ships.Count <= 0)
+        {
+            turnManager.EndGame();
+            EndGame(1);
         }
         else if(player2Ships.Count <= 0)
         {
             turnManager.EndGame();
-            Debug.LogWarning("END GAME");
+            EndGame(2);
         }
+    }
+
+    void EndGame(int playerWinNum)
+    {
+        Debug.LogWarning("END GAME");
+        DestroyAllShip();
+
+        switch(playerWinNum)
+        {
+            case 0:
+                Debug.LogWarning("TIE GAME");
+                break;
+
+            case 1:
+                Debug.LogWarning("PLAYER 1 WIN");
+                break;
+
+            case 2:
+                Debug.LogWarning("PLAYER 2 WIN");
+                break;
+        }
+
     }
 }
