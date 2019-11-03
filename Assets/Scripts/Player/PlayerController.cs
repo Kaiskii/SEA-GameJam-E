@@ -374,7 +374,6 @@ public class PlayerController : MonoBehaviour
         
     }
 
-
     void SetCorrectHPLayout()
     {
         if(health>=50)

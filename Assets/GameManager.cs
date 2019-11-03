@@ -109,6 +109,15 @@ public class GameManager : MonoBehaviour, IManager
         }
     }
 
+
+    public void TriggerTutorial(GameObject canvas) {
+        canvas.GetComponent<Animator>().SetTrigger("Play");
+    }
+
+    public void ExitTutorial(GameObject canvas) {
+        canvas.GetComponent<Animator>().SetTrigger("End");
+    }
+
     public void DestroyAllShip()
     {
         foreach(PlayerController controller in player1Ships)
@@ -123,7 +132,6 @@ public class GameManager : MonoBehaviour, IManager
         player1Ships.Clear();
         player2Ships.Clear();
     }
-
 
     void CheckChangeStateIdleToPlanning(TurnState prevState, TurnState nextState)
     {
