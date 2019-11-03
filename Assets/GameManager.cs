@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CarrotEngine;
 
 public enum PlayerNumber
 {
@@ -8,10 +9,8 @@ public enum PlayerNumber
 }
 
 
-public class GameManager : MonoBehaviour
-{
-    static GameManager instance;
-    
+public class GameManager : MonoBehaviour, IManager
+{    
     public List<GameObject> player1Ships; //Ship Size
     public List<GameObject> player2Ships;
     public float SecondsForEachTurn;
@@ -22,14 +21,25 @@ public class GameManager : MonoBehaviour
     private int roundsPlayed = 0;
     bool didCountDown = false;
 
+    [SerializeField] TurnManager turnManager;
+
     private void Update()
     {
         CheckForTurns();
     }
 
+    public void InitializeManager()
+    {
+        if(turnManager == null)
+        {
+            turnManager = Toolbox.Instance.FindManager<TurnManager>();
+        }
+    }
+
+
     void CheckForTurns()
     {
-        if(TurnManager.instance.currentState==TurnState.Planning)
+        if(turnManager.currentState==TurnState.Planning)
         {
             eachShipTimer += Time.deltaTime;
             int seconds = (int)(eachShipTimer % 60);
@@ -41,7 +51,7 @@ public class GameManager : MonoBehaviour
                 roundsPlayed++;
             }
         }
-       else if (TurnManager.instance.currentState == TurnState.Countdown)
+       else if (turnManager.currentState == TurnState.Countdown)
         {
            /* countDownTimer += Time.deltaTime;
             int seconds = (int)(countDownTimer % 60);
@@ -85,14 +95,10 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    private void Awake()
-    {
-        instance = this;
-    }
-
+    
     public void StartGame()
     {
-        TurnManager.instance.StartGame();
+        turnManager.StartGame();
         player1Ships[0].GetComponent<PlayerController>().MakeThisChosen();
         player2Ships[0].GetComponent<PlayerController>().MakeThisChosen();
 

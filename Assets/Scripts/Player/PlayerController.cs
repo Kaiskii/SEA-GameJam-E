@@ -174,9 +174,7 @@ public class PlayerController : MonoBehaviour
     {
         PositionRecords rec= new PositionRecords(dummyPlayer.transform.position, dummyPlayer.transform.eulerAngles);
         allPositionRecords.Add(rec);
-    }
-
-    
+    }    
 
     public void GoToRecordMovements()
     {

@@ -12,11 +12,10 @@ public enum TurnState
     Execution
 }
 
-public class TurnManager : MonoBehaviour
+public class TurnManager : MonoBehaviour, IManager
 {
     EnumStateMachine<TurnState> stateMachine = new EnumStateMachine<TurnState>();
     public TurnState currentState { get { return stateMachine.currentState; } }
-    public static TurnManager instance;
     [Header("Serialize Time")]
     [SerializeField] public float planningPhaseTime;
     [SerializeField] public float countdownPhaseTime;
@@ -27,13 +26,13 @@ public class TurnManager : MonoBehaviour
     private int currentShip;
     
 
-    private void Awake()
-    {
-        Initialize();
-        instance = this;
-    }
+    //private void Awake()
+    //{
+    //    Initialize();
+    //}
 
-    public void Initialize()
+
+    public void InitializeManager()
     {
         stateMachine.AddStateRules(TurnState.Idle, new HashSet<TurnState>() { TurnState.Planning });
         stateMachine.AddStateRules(TurnState.Planning, new HashSet<TurnState>() { TurnState.Countdown, TurnState.Idle, TurnState.Planning });
