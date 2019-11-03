@@ -11,9 +11,11 @@ public class PlayerController : MonoBehaviour
 {
     public ShipScriptableObject shipScriptableObject;
     private ShipData shipData;
-
+    private int attackNum=0;
+    private int arkAttackNum = 0;
     public PlayerNumber playerNumber;
-    
+    public GameObject laserPrefab;
+    private SpriteRenderer spriteRend;
     public Rigidbody2D rb;
     public float rotationZ;
     Vector2 movement;
@@ -71,6 +73,7 @@ public class PlayerController : MonoBehaviour
         allPositionRecords = new List<PositionRecords>();
         Ark.gameObject.SetActive(false);
         trail = transform.Find("templateTrail").GetComponent<ParticleSystem>();
+        spriteRend = GetComponent<SpriteRenderer>();
         InitializeController();
     }
 
@@ -220,7 +223,16 @@ public class PlayerController : MonoBehaviour
             PositionRecords rec = allPositionRecords[0];
             transform.position = rec.position;
             transform.eulerAngles = rec.rotation;
+            if (allPositionRecords[0].isShot == true)
+            {
+                Debug.Log("RealShot");
+                attackNum++;
+                if (Ark.GetComponent<ArkController>().GetCorrectArkCollider(attackNum)) Ark.GetComponent<ArkController>().GetCorrectArkCollider(attackNum).GetComponent<ArkCollider>().DoDamageToList();
+
+
+            }
             allPositionRecords.RemoveAt(0);
+
         }
         
     }
@@ -255,7 +267,8 @@ public class PlayerController : MonoBehaviour
      void Shoot()
     {
         Debug.Log("Shoot");
-        ownArk.GetComponent<ArkController>().ActivateAttackArea(false);
+        arkAttackNum++;
+        ownArk.GetComponent<ArkController>().ActivateAttackArea(false, arkAttackNum);
         canShoot = false;
         ammo--;
         inputRealShot = true;
@@ -266,7 +279,8 @@ public class PlayerController : MonoBehaviour
     void FakeShoot()
     {
         Debug.Log("FakeShoot");
-        ownArk.GetComponent<ArkController>().ActivateAttackArea(true);
+        arkAttackNum++;
+        ownArk.GetComponent<ArkController>().ActivateAttackArea(true, arkAttackNum);
         canShoot = false;
         fakeAmmo--;
         inputFakeShot = true;
@@ -326,10 +340,30 @@ public class PlayerController : MonoBehaviour
         
     }
 
+
+    void SetCorrectHPLayout()
+    {
+        if(health>50)
+        {
+            spriteRend.color = Color.blue;
+        }
+        if(health<50)
+        {
+            spriteRend.color = Color.white;
+        }
+    }
+
+    public void RespawnLaser()
+    {
+        Instantiate(laserPrefab, transform.position, transform.rotation);
+    }
+
     public void EndTurn()
     {
-        Destroy(ownArk);
+        ownArk.SetActive(false);
         isChosenShip = false;
+       //attackNum = 0;
+       // arkAttackNum = 0;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

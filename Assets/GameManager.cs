@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour, IManager
             }
             
         }
-        else if (prevState == TurnState.Countdown && nextState == TurnState.Execution)
+        else if(prevState == TurnState.Planning && nextState == TurnState.Countdown)
         {
             Debug.Log("0");
             player1Ships[0].GetComponent<PlayerController>().EndTurn();
@@ -110,6 +110,10 @@ public class GameManager : MonoBehaviour, IManager
             }
 
 
+        }
+        else if (prevState == TurnState.Countdown && nextState == TurnState.Execution)
+        {
+          
         }
 
 
