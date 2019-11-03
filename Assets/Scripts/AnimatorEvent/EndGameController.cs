@@ -1,7 +1,9 @@
 ﻿using CarrotEngine;
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class EndGameController : MonoBehaviour
@@ -47,9 +49,10 @@ public class EndGameController : MonoBehaviour
         gameManager.ResetGame();
     }
 
+    [Button]
     public void MainMenu()
     {
-        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 }
