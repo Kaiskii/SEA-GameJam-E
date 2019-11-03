@@ -227,7 +227,7 @@ public class PlayerController : MonoBehaviour
             {
                 Debug.Log("RealShot");
                 attackNum++;
-                if (Ark.GetComponent<ArkController>().GetCorrectArkCollider(attackNum)) Ark.GetComponent<ArkController>().GetCorrectArkCollider(attackNum).GetComponent<ArkCollider>().DoDamageToList();
+                if (ownArk.GetComponent<ArkController>().GetCorrectArkCollider(attackNum)) ownArk.GetComponent<ArkController>().GetCorrectArkCollider(attackNum).GetComponent<ArkCollider>().DoDamageToList();
 
 
             }

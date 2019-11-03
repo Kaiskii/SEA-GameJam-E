@@ -35,7 +35,7 @@ public class ArkController : MonoBehaviour
     {
         foreach (GameObject obj in ArkCollidersCreatedByMe)
         {
-            Debug.Log("returnCorrect");
+            
             if (obj.GetComponent<ArkCollider>().attackNum == attackNum)
             {
                 

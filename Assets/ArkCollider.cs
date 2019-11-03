@@ -78,11 +78,11 @@ public class ArkCollider : MonoBehaviour
 
     public void DoDamageToList()
     {
-       
+        parentPlayer.GetComponent<PlayerController>().RespawnLaser();
         foreach (PlayerController obj in shipsInTrigger)
         {
             obj.GetDamage(51);
-            parentPlayer.GetComponent<PlayerController>().RespawnLaser();
+            
         }
         isUsedAlready = true;
     }

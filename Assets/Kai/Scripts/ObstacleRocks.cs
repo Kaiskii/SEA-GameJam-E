@@ -25,10 +25,10 @@ public class ObstacleRocks : MonoBehaviour
 
         switch (rt) {
             case ROCK_TYPE.Whole:
-                shipController.health = 0;
+                shipController.GetDamage(shipController.health);
                 break;
             case ROCK_TYPE.Clusters:
-                shipController.health -= 50;
+                shipController.GetDamage(50);
                 break;
         }
     }
