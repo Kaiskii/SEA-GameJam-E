@@ -231,6 +231,7 @@ public class PlayerController : MonoBehaviour
 
     public void GoToRecordMovements()
     {
+        if (Time.timeScale == 0) return;
         if(allPositionRecords.Count>0)
         {
             

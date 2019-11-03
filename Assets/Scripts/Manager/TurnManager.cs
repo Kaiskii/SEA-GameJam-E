@@ -103,6 +103,7 @@ public class TurnManager : MonoBehaviour, IManager
         Debug.Log(currentState);
 
         if (currentState == TurnState.Idle) return;
+        if (Time.timeScale == 0) return;
 
         // Addressing Time up scenario
         currentCountdown -= Time.deltaTime;
