@@ -17,17 +17,29 @@ public class GameManager : MonoBehaviour, IManager
     public List<GameObject> tempplayer1Ships; //Ship Size
     public List<GameObject> tempplayer2Ships;
     private float eachShipTimer;
+    public static GameManager instance;
     private float countDownTimer;
-
-    private void Start()
+    void SetToAvailableShips()
     {
-
         tempplayer1Ships = new List<GameObject>(player1Ships);
         tempplayer2Ships = new List<GameObject>(player2Ships);
 
-        
+    }
+    private void Awake()
+    {
+        instance = this;
+    }
+    private void Start()
+    {
+        SetToAvailableShips();
+
+
+
 
     }
+    
+    
+    
     public void StartGame()
     {
         turnManager.StartGame();
@@ -55,16 +67,17 @@ public class GameManager : MonoBehaviour, IManager
 
     void CheckForChangeState(TurnState prevState, TurnState nextState)
     {
-        if(prevState==TurnState.Idle && nextState==TurnState.Planning)
+        
+        if (prevState == TurnState.Idle && nextState == TurnState.Planning)
         {
-            if (player1Ships.Count != 0 && player2Ships.Count != 0)
+            if (tempplayer1Ships.Count != 0 )
             {
-                player1Ships[0].GetComponent<PlayerController>().MakeThisChosen();
-                player2Ships[0].GetComponent<PlayerController>().MakeThisChosen();
-                
-                
-               
-
+                tempplayer1Ships[0].GetComponent<PlayerController>().MakeThisChosen();
+            }
+            if (tempplayer2Ships.Count != 0)
+            {        
+                tempplayer2Ships[0].GetComponent<PlayerController>().MakeThisChosen();
+              
             }
             else
             {
@@ -79,32 +92,55 @@ public class GameManager : MonoBehaviour, IManager
                 }
             }
         }
-        else if(prevState == TurnState.Planning && nextState == TurnState.Planning)
+        else if (prevState == TurnState.Planning && nextState == TurnState.Planning)
         {
-            if(player1Ships.Count>0 && player2Ships.Count>0)
+            if (tempplayer1Ships.Count > 0 )
             {
-                player1Ships[0].GetComponent<PlayerController>().EndTurn();
-                player2Ships[0].GetComponent<PlayerController>().EndTurn();
-                player1Ships.RemoveAt(0);
-                player2Ships.RemoveAt(0);
-                player1Ships[0].GetComponent<PlayerController>().MakeThisChosen();
-                player2Ships[0].GetComponent<PlayerController>().MakeThisChosen();
+                tempplayer1Ships[0].GetComponent<PlayerController>().EndTurn();
+                tempplayer1Ships.RemoveAt(0);
+            }
+            if(tempplayer2Ships.Count> 0 )
+            {
+                tempplayer2Ships[0].GetComponent<PlayerController>().EndTurn();
+
+                tempplayer2Ships.RemoveAt(0);
+
+            }
+                
+                
+                if(tempplayer1Ships.Count!=0 && tempplayer2Ships.Count!=0)
+                {
+                    tempplayer1Ships[0].GetComponent<PlayerController>().MakeThisChosen();
+                    tempplayer2Ships[0].GetComponent<PlayerController>().MakeThisChosen();
+                }
+                
+            
+
+        }
+        else if (prevState == TurnState.Planning && nextState == TurnState.Countdown)
+        {
+            
+            if (tempplayer1Ships.Count > 0) tempplayer1Ships[0].GetComponent<PlayerController>().EndTurn();
+
+            if (tempplayer2Ships.Count > 0) tempplayer2Ships[0].GetComponent<PlayerController>().EndTurn();
+
+
+            if (tempplayer1Ships.Count != 0)
+            {
+                tempplayer1Ships.RemoveAt(0);
+            }
+            if ( tempplayer2Ships.Count!=0)
+            {
+                
+                tempplayer2Ships.RemoveAt(0);
             }
             
-        }
-        else if(prevState == TurnState.Planning && nextState == TurnState.Countdown)
-        {
-            Debug.Log("0");
-            player1Ships[0].GetComponent<PlayerController>().EndTurn();
-            player2Ships[0].GetComponent<PlayerController>().EndTurn();
-            player1Ships.RemoveAt(0);
-            player2Ships.RemoveAt(0);
-            foreach (GameObject obj in tempplayer1Ships)
+            foreach (GameObject obj in player1Ships)
             {
                 obj.GetComponent<PlayerController>().goToRecording = true;
                 Debug.Log("1");
             }
-            foreach (GameObject obj in tempplayer2Ships)
+            foreach (GameObject obj in player2Ships)
             {
                 obj.GetComponent<PlayerController>().goToRecording = true;
             }
@@ -113,10 +149,68 @@ public class GameManager : MonoBehaviour, IManager
         }
         else if (prevState == TurnState.Countdown && nextState == TurnState.Execution)
         {
-          
+
+            SetToAvailableShips();
+
+            foreach (GameObject obj in tempplayer1Ships)
+            {
+                obj.GetComponent<PlayerController>().dummyPlayer.SetActive(false);
+
+            }
+            foreach (GameObject obj in tempplayer2Ships)
+            {
+                obj.GetComponent<PlayerController>().dummyPlayer.SetActive(false);
+            }
+
+            
+
+
         }
 
+        else if (prevState == TurnState.Execution && nextState == TurnState.Planning)
+        {
 
+            SetToAvailableShips();
+            foreach (GameObject obj in tempplayer1Ships)
+            {
+
+                obj.GetComponent<PlayerController>().goToRecording = false;
+            }
+            foreach (GameObject obj in tempplayer2Ships)
+            {
+                obj.GetComponent<PlayerController>().goToRecording = false;
+            }
+
+
+
+            if (tempplayer1Ships.Count != 0)
+            {
+                tempplayer1Ships[0].GetComponent<PlayerController>().MakeThisChosen();
+            }
+            if (tempplayer2Ships.Count != 0)
+            {
+                tempplayer2Ships[0].GetComponent<PlayerController>().MakeThisChosen();
+
+            }
+
+            else
+            {
+                
+                foreach (GameObject obj in tempplayer1Ships)
+                {
+
+                    obj.GetComponent<PlayerController>().goToRecording = true;
+                }
+                foreach (GameObject obj in tempplayer2Ships)
+                {
+                    obj.GetComponent<PlayerController>().goToRecording = true;
+                }
+            }
+
+            
+
+
+        }
     }
 
     

@@ -78,6 +78,7 @@ public class ArkCollider : MonoBehaviour
 
     public void DoDamageToList()
     {
+        if (isUsedAlready) return;
         parentPlayer.GetComponent<PlayerController>().RespawnLaser();
         foreach (PlayerController obj in shipsInTrigger)
         {

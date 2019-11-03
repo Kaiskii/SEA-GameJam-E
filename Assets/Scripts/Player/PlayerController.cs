@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     private int arkAttackNum = 0;
     public PlayerNumber playerNumber;
     public GameObject laserPrefab;
-    private SpriteRenderer spriteRend;
+    public SpriteRenderer spriteRend;
     public Rigidbody2D rb;
     public float rotationZ;
     Vector2 movement;
@@ -26,7 +26,8 @@ public class PlayerController : MonoBehaviour
     public GameObject Ark;
     private GameObject ownArk;
     public ParticleSystem trail;
-    private GameObject dummyPlayer;
+    public GameObject dummyPlayer;
+    private ParticleSystem ownTrail;
     public float health;
     private float fuel;
     private float ammo;
@@ -72,9 +73,10 @@ public class PlayerController : MonoBehaviour
     {
         allPositionRecords = new List<PositionRecords>();
         Ark.gameObject.SetActive(false);
-        trail = transform.Find("templateTrail").GetComponent<ParticleSystem>();
-        spriteRend = GetComponent<SpriteRenderer>();
+        
+        
         InitializeController();
+       // SetCorrectHPLayout();
     }
 
     
@@ -149,22 +151,33 @@ public class PlayerController : MonoBehaviour
         dumm.transform.position = transform.position;
         Rigidbody2D dummRb = dumm.AddComponent<Rigidbody2D>();
         dummRb.gravityScale = 0;
-        dumm.transform.rotation = this.transform.rotation;
+        dumm.transform.rotation = Quaternion.Euler(transform.eulerAngles);
         dummyPlayer = dumm;
         GameObject newArk = Instantiate(Ark, dumm.transform.position, dumm.transform.rotation);
+        
         ownArk = newArk;
-        
-        
-        
-
         dummyPlayer = dumm;
+
+
+
+
 
 
         //Assigning ColorOverLifeTimeModule
-        ParticleSystem.ColorOverLifetimeModule cltm = trail.colorOverLifetime;
+
 
         //Changing to Red if PlayerNumber1
-        if (playerNumber == PlayerNumber.NUMBER1) {
+
+
+
+
+        //trail
+        ParticleSystem newTrail = Instantiate(trail, newArk.transform.position, transform.rotation);
+        ParticleSystem.ColorOverLifetimeModule cltm = newTrail.colorOverLifetime;
+        
+
+        if (playerNumber == PlayerNumber.NUMBER1)
+        {
             //Gradient Initialization
             Gradient grad = new Gradient();
             grad.SetKeys(new GradientColorKey[] { new GradientColorKey(new Color(0.17f, 0.68f, 0.78f), 0.0f),
@@ -175,17 +188,11 @@ public class PlayerController : MonoBehaviour
 
             cltm.color = grad;
         }
-
-
-
-        //trail
-        trail.Play();
-        trail.loop = true;
-         trail.transform.SetParent(dumm.transform);
-        trail.transform.localPosition = Vector3.zero;
-
-      
-        
+        newTrail.Play();
+        newTrail.loop = true;
+        newTrail.transform.SetParent(dumm.transform);
+        newTrail.transform.localPosition = Vector3.zero;
+        ownTrail = newTrail;
         newArk.GetComponent<ArkController>().player = this.gameObject;
         newArk.gameObject.SetActive(true);
         newArk.transform.SetParent(dumm.transform);
@@ -291,7 +298,28 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("GotDamaged");
          health-= damage;
-        if (health <= 0) this.gameObject.SetActive(false);
+        // SetCorrectHPLayout();
+        if (health <= 0)
+        {
+            this.gameObject.SetActive(false);
+            switch (playerNumber)
+            {
+                case PlayerNumber.NUMBER1:
+                    {
+                        GameManager.instance.player1Ships.Remove(this.gameObject);
+
+                        break;
+                    }
+
+
+                case PlayerNumber.NUMBER2:
+                    {
+                        GameManager.instance.player2Ships.Remove(this.gameObject);
+                        break;
+                    }
+            }
+        }
+       
        
     }
     void MoveDummy()
@@ -343,11 +371,11 @@ public class PlayerController : MonoBehaviour
 
     void SetCorrectHPLayout()
     {
-        if(health>50)
+        if(health>=50)
         {
             spriteRend.color = Color.blue;
         }
-        if(health<50)
+       else if(health<50)
         {
             spriteRend.color = Color.white;
         }
@@ -361,7 +389,9 @@ public class PlayerController : MonoBehaviour
     public void EndTurn()
     {
         ownArk.SetActive(false);
+        startRecording = false;
         isChosenShip = false;
+        goToRecording = false;
        //attackNum = 0;
        // arkAttackNum = 0;
     }
@@ -373,14 +403,25 @@ public class PlayerController : MonoBehaviour
         {
             case PlayerNumber.NUMBER1:
                 {
-                    if (other.gameObject.tag == "Player2") Destroy(this.gameObject);
+                    if (other.gameObject.tag == "Player2")
+                    {
+                       
+                        Destroy(this.gameObject);
+                        Destroy(other.gameObject);
+                    }
+                   
                     break;
                 }
                 
 
             case PlayerNumber.NUMBER2:
                 {
-                    if (other.gameObject.tag == "Player1") Destroy(this.gameObject);
+                    if (other.gameObject.tag == "Player1")
+                    {
+                        Destroy(this.gameObject);
+                        Destroy(other.gameObject);
+                    }
+                   
                     break;
                 }
         }

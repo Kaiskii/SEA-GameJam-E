@@ -34,6 +34,7 @@ public class TurnManager : MonoBehaviour, IManager
         stateMachine.AddStateRules(TurnState.Execution, new HashSet<TurnState>() { TurnState.Planning, TurnState.Idle });
 
         stateMachine.OnChangeStateEvent += OnChangeStateCountdownUpdate;
+        
     }
 
     void OnChangeStateCountdownUpdate(TurnState prevState, TurnState nextState)
