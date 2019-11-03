@@ -18,6 +18,8 @@ public class EndGameController : MonoBehaviour
     [SerializeField] Sprite player2Sprite;
     [SerializeField] Sprite tieSprite;
 
+    public GameObject resetGame;
+
     public void setPlayerWin(int playerNum)
     {
         switch (playerNum)
@@ -46,7 +48,8 @@ public class EndGameController : MonoBehaviour
 
     public void ResetGame()
     {
-        gameManager.ResetGame();
+        resetGame.SetActive(true);
+        this.gameObject.SetActive(false);
     }
 
     [Button]

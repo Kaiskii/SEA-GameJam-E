@@ -30,7 +30,7 @@ namespace CarrotEngine
                 return;
             }
 
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
 
             // Adds all manager to list first
             foreach (IManager manager in gameObject.GetComponentsInChildren<IManager>(true))

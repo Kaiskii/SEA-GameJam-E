@@ -162,7 +162,6 @@ GameObject:
   - component: {fileID: 3068072266417354286}
   - component: {fileID: 3068072266417354281}
   - component: {fileID: 3068072266417354280}
-  - component: {fileID: 3068072266417354283}
   - component: {fileID: 3083338150476556080}
   m_Layer: 5
   m_Name: EndGame
@@ -170,7 +169,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3068072266417354287
 RectTransform:
   m_ObjectHideFlags: 0
@@ -257,25 +256,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 55
---- !u!95 &3068072266417354283
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3068072266417354282}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3afd92c7193cb93438763c733fb006aa, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &3083338150476556080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,6 +274,7 @@ MonoBehaviour:
   player1Sprite: {fileID: 21300000, guid: 2ac55ed163313fc408a404ee3ef4e41e, type: 3}
   player2Sprite: {fileID: 21300000, guid: 0cb5bb1216653f14489bf0adc9329f66, type: 3}
   tieSprite: {fileID: 21300000, guid: 6da0e1c525c96794192e9dcd714c72ff, type: 3}
+  resetGame: {fileID: 0}
 --- !u!1 &4887198297528185117
 GameObject:
   m_ObjectHideFlags: 0
