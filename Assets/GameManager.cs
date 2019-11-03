@@ -19,8 +19,15 @@ public class GameManager : MonoBehaviour, IManager
     private float eachShipTimer;
     private float countDownTimer;
 
+    AudioManager am;
+
     private void Start()
     {
+
+        if(am == null)
+            am = Toolbox.Instance.FindManager<AudioManager>();
+
+        am.PlayAudioClip("mainMenuBGM", AudioManager.ClipType.BGM);
 
         tempplayer1Ships = new List<GameObject>(player1Ships);
         tempplayer2Ships = new List<GameObject>(player2Ships);
@@ -31,8 +38,7 @@ public class GameManager : MonoBehaviour, IManager
     public void StartGame()
     {
         turnManager.StartGame();
-
-
+        am.PlayAudioClip("inGameBGM", AudioManager.ClipType.BGM);
     }
 
     [SerializeField] TurnManager turnManager;
