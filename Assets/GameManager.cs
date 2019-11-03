@@ -24,16 +24,31 @@ public class GameManager : MonoBehaviour, IManager
         tempplayer1Ships = new List<GameObject>(player1Ships);
         tempplayer2Ships = new List<GameObject>(player2Ships);
 
+<<<<<<< HEAD
     }
     private void Awake()
     {
         instance = this;
     }
+=======
+    AudioManager am;
+
+>>>>>>> 5bcff935c7694cd160b156a20c313077a6b9c96f
     private void Start()
     {
         SetToAvailableShips();
 
 
+<<<<<<< HEAD
+=======
+        if(am == null)
+            am = Toolbox.Instance.FindManager<AudioManager>();
+
+        am.PlayAudioClip("mainMenuBGM", AudioManager.ClipType.BGM);
+
+        tempplayer1Ships = new List<GameObject>(player1Ships);
+        tempplayer2Ships = new List<GameObject>(player2Ships);
+>>>>>>> 5bcff935c7694cd160b156a20c313077a6b9c96f
 
 
     }
@@ -43,15 +58,15 @@ public class GameManager : MonoBehaviour, IManager
     public void StartGame()
     {
         turnManager.StartGame();
-
-
+        am.PlayAudioClip("inGameBGM", AudioManager.ClipType.BGM);
     }
 
     [SerializeField] TurnManager turnManager;
 
     private void Update()
     {
-       
+        if (Input.GetMouseButtonDown(0))
+            am.PlayAudioClip("Click", AudioManager.ClipType.SFX);
     }
 
     public void InitializeManager()
@@ -225,7 +240,6 @@ public class GameManager : MonoBehaviour, IManager
        
 
     }
-    
    
 
    
