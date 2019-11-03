@@ -29,7 +29,7 @@ public class UICountdown : MonoBehaviour
         switch (tm.currentState) {
             case TurnState.Planning:
                 timerText.text = tm.currentCountdown.ToString("0.0");
-                Debug.Log(timerText.text);
+                //Debug.Log(timerText.text);
                 if (tm.currentCountdown <= turnRed) {
                     timerText.color = darkRed;
                 } else {

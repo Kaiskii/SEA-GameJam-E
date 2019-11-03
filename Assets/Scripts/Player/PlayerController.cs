@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     private GameObject ownArk;
     public ParticleSystem trail;
     private GameObject dummyPlayer;
-    private float health;
+    public float health;
     private float fuel;
     private float ammo;
     private float fakeAmmo;
