@@ -32,6 +32,9 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] TurnManager _turnManager;
 
+    bool inputFakeShot = false;
+    bool inputRealShot = false;
+
     TurnManager turnManager
     {
         get
@@ -106,6 +109,11 @@ public class PlayerController : MonoBehaviour
                     if (canShoot&& !goToRecording&& fakeAmmo > 0) FakeShoot();
 
                 }
+                else
+                {
+                    inputFakeShot = false;
+                    inputRealShot = false;
+                }
                 break;
             case PlayerNumber.NUMBER2:
                 if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -117,6 +125,11 @@ public class PlayerController : MonoBehaviour
                 {
                     if (canShoot && !goToRecording && fakeAmmo>0) FakeShoot();
 
+                }
+                else
+                {
+                    inputFakeShot = false;
+                    inputRealShot = false;
                 }
                 break;
         }
@@ -194,7 +207,7 @@ public class PlayerController : MonoBehaviour
 
     void RecordMovements()
     {
-        PositionRecords rec= new PositionRecords(dummyPlayer.transform.position, dummyPlayer.transform.eulerAngles);
+        PositionRecords rec= new PositionRecords(dummyPlayer.transform.position, dummyPlayer.transform.eulerAngles, inputRealShot, inputFakeShot);
         allPositionRecords.Add(rec);
     }    
 
@@ -245,6 +258,7 @@ public class PlayerController : MonoBehaviour
         ownArk.GetComponent<ArkController>().ActivateAttackArea(false);
         canShoot = false;
         ammo--;
+        inputRealShot = true;
         StartCoroutine(ShootDelay());
         
     }
@@ -255,6 +269,7 @@ public class PlayerController : MonoBehaviour
         ownArk.GetComponent<ArkController>().ActivateAttackArea(true);
         canShoot = false;
         fakeAmmo--;
+        inputFakeShot = true;
         StartCoroutine(ShootDelay());
     }
 
@@ -334,7 +349,6 @@ public class PlayerController : MonoBehaviour
                     if (other.gameObject.tag == "Player1") Destroy(this.gameObject);
                     break;
                 }
-                
         }
     }
 }
@@ -342,17 +356,18 @@ public class PlayerController : MonoBehaviour
 
 
 
-public class PositionRecords
-    {
-    
-        public Vector3 position;
-         public Vector3 rotation;
-        public bool isShot;
+public struct PositionRecords
+{
+    public Vector3 position;
+    public Vector3 rotation;
+    public bool isShot;
+    public bool fakeShot;
 
-        public PositionRecords(Vector3 pos,Vector3 rot)
-        {
-            position = pos;
-            rotation = rot;
-        }
-       
+    public PositionRecords(Vector3 pos,Vector3 rot, bool isShot, bool fakeShot)
+    {
+        position = pos;
+        rotation = rot;
+        this.isShot = isShot;
+        this.fakeShot = fakeShot;
+    }
 }
