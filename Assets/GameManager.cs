@@ -12,16 +12,17 @@ public enum PlayerNumber
 
 public class GameManager : MonoBehaviour, IManager
 {    
-    public List<PlayerController> player1Ships; //Ship Size
-    public List<PlayerController> player2Ships;
+    [HideInInspector] public List<PlayerController> player1Ships; //Ship Size
+    [HideInInspector] public List<PlayerController> player2Ships;
     public float SecondsForEachTurn;
-    public List<PlayerController> tempplayer1Ships; //Ship Size
-    public List<PlayerController> tempplayer2Ships;
+    [HideInInspector] public List<PlayerController> tempplayer1Ships; //Ship Size
+    [HideInInspector] public List<PlayerController> tempplayer2Ships;
     private float eachShipTimer;
     private float countDownTimer;
 
     [SerializeField] AudioManager audioManager;
     [SerializeField] TurnManager turnManager;
+    [SerializeField] GameObject resetGameCanvas;
 
     [Header("Player 1")]
     [SerializeField] GameObject player1Prefab;
