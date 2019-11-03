@@ -30,6 +30,9 @@ public class GameManager : MonoBehaviour, IManager
     [SerializeField] GameObject player2Prefab;
     [SerializeField] List<Transform> player2SpawnLocation;
 
+    GameObject mainMenuCanvas;
+
+    #region Initializing
     public void InitializeManager()
     {
         if(turnManager == null)
@@ -41,20 +44,24 @@ public class GameManager : MonoBehaviour, IManager
         turnManager.stateMachine.OnChangeStateEvent += CheckChangeStatePlanningToCountdown;
         turnManager.stateMachine.OnChangeStateEvent += CheckChangeStateCountdownToExecution;
         turnManager.stateMachine.OnChangeStateEvent += CheckChangeStateExecutionToPlanning;
-    }
 
-    void SetToAvailableShips()
-    {
-        tempplayer1Ships = new List<PlayerController>(player1Ships);
-        tempplayer2Ships = new List<PlayerController>(player2Ships);
+        turnManager.stateMachine.RegisterOnExit(TurnState.Execution, CheckEndGame);
     }
 
     private void Start()
     {
-        SetToAvailableShips();
-
         audioManager.PlayAudioClip("mainMenuBGM", AudioManager.ClipType.BGM);
+    }
 
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+            audioManager.PlayAudioClip("Click", AudioManager.ClipType.SFX);
+    }
+    #endregion
+
+    void SetToAvailableShips()
+    {
         tempplayer1Ships = new List<PlayerController>(player1Ships);
         tempplayer2Ships = new List<PlayerController>(player2Ships);
     }
@@ -62,34 +69,41 @@ public class GameManager : MonoBehaviour, IManager
     public void StartGame(GameObject mainMenuCanvas)
     {
         InstantiateShip();
+        SetToAvailableShips();
 
-        mainMenuCanvas.SetActive(false);
+        this.mainMenuCanvas = mainMenuCanvas;
+        this.mainMenuCanvas.SetActive(false);
 
         turnManager.StartGame();
         audioManager.PlayAudioClip("inGameBGM", AudioManager.ClipType.BGM);
     }
 
+    public void ResetGame()
+    {
+        // Destroy all ships in scene
+
+        StartGame(mainMenuCanvas);
+    }
+
     public void InstantiateShip()
     {
+        player1Ships.Clear();
+        player2Ships.Clear();
         foreach(Transform spawnLocation in player1SpawnLocation)
         {
             Instantiate(player1Prefab, spawnLocation).transform.parent = null;
             PlayerController playerController = player1Prefab.GetComponent<PlayerController>();
+            player1Ships.Add(playerController);
         }
 
         foreach(Transform spawnLocation in player2SpawnLocation)
         {
             Instantiate(player1Prefab, spawnLocation).transform.parent = null;
             PlayerController playerController = player2Prefab.GetComponent<PlayerController>();
+            player2Ships.Add(playerController);
         }
     }
 
-
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-            audioManager.PlayAudioClip("Click", AudioManager.ClipType.SFX);
-    }
 
     void CheckChangeStateIdleToPlanning(TurnState prevState, TurnState nextState)
     {
@@ -184,7 +198,6 @@ public class GameManager : MonoBehaviour, IManager
     {
         if (prevState == TurnState.Countdown && nextState == TurnState.Execution)
         {
-
             SetToAvailableShips();
 
             foreach (PlayerController obj in tempplayer1Ships)
@@ -206,7 +219,6 @@ public class GameManager : MonoBehaviour, IManager
             SetToAvailableShips();
             foreach (PlayerController obj in tempplayer1Ships)
             {
-
                 obj.goToRecording = false;
             }
             foreach (PlayerController obj in tempplayer2Ships)
@@ -221,7 +233,6 @@ public class GameManager : MonoBehaviour, IManager
             if (tempplayer2Ships.Count != 0)
             {
                 tempplayer2Ships[0].MakeThisChosen();
-
             }
             else
             {   
@@ -237,4 +248,18 @@ public class GameManager : MonoBehaviour, IManager
             }
         }
     }   
+
+    void CheckEndGame()
+    {
+        if(player1Ships.Count <= 0)
+        {
+            turnManager.EndGame();
+            Debug.LogWarning("END GAME");
+        }
+        else if(player2Ships.Count <= 0)
+        {
+            turnManager.EndGame();
+            Debug.LogWarning("END GAME");
+        }
+    }
 }
