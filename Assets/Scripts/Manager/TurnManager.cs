@@ -24,10 +24,7 @@ public class TurnManager : MonoBehaviour, IManager
     private float currentCountdown;
 
     [SerializeField] public int numberOfShips;
-    private int currentShip;
-    
-    
-
+    private int currentShipAccessed;
 
     public void InitializeManager()
     {
@@ -72,14 +69,14 @@ public class TurnManager : MonoBehaviour, IManager
     [Button]
     public void EndTurn()
     {
-        currentShip++;
-        if(currentShip < numberOfShips)
+        currentShipAccessed++;
+        if(currentShipAccessed < numberOfShips)
         {
             stateMachine.SafeChangeState(TurnState.Planning);
         }
         else
         {
-            currentShip = 0;
+            currentShipAccessed = 0;
             stateMachine.SafeChangeState(TurnState.Countdown);
         }
     }
