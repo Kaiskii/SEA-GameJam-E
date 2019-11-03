@@ -1833,6 +1833,35 @@ PrefabInstance:
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd, type: 3}
+--- !u!1 &1955800691 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2879181742379103709, guid: 6c1ebc9f422f53548b8dd15849869aca,
+    type: 3}
+  m_PrefabInstance: {fileID: 1403483924}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1955800693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955800691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dabf9f19e7e16374884f8b73cb632b9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  audioLibraryList:
+  - {fileID: 11400000, guid: 2f26813059b046465ae791c6c42b1ac7, type: 2}
 --- !u!1 &2071904631 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1914543864192267527, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,

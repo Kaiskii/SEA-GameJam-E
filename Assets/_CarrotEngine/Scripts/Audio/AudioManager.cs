@@ -203,11 +203,11 @@ namespace CarrotEngine
         #region BGMPlayer
         Guid BGMPlayer(AudioClip audioClip = null, PlayBGMType type = PlayBGMType.Repeat, float volume = 1f, float fadeDuration = 0.5f)
         {
+            BGMPlayerSettings(type, volume, fadeDuration);
 
             bgmAudioSource.volume = volume;
             bgmAudioSource.clip = audioClip;
             bgmAudioSource.Play();
-            BGMPlayerSettings(type, volume, fadeDuration);
 
             return bgmGuid;
         }
