@@ -11,12 +11,14 @@ public class ArkCollider : MonoBehaviour
     public bool isActivated;
     public bool isUsedAlready = false;
     private List<PlayerController> shipsInTrigger;
-
+    public SpriteRenderer HitArea;
     
 
     private void Start()
     {
         shipsInTrigger = new List<PlayerController>();
+
+      
         
     }
     private void OnTriggerEnter2D(Collider2D other)
