@@ -40,7 +40,7 @@ public class ArkController : MonoBehaviour
         GameObject newHitArea=Instantiate(childArkCollider, childArkCollider.transform.position, childArkCollider.transform.rotation);
 
         ArkCollider col = newHitArea.GetComponent<ArkCollider>();
-        col.parentPlayer = player.transform;
+        col.parentPlayer = player.GetComponent<PlayerController>();
         col.DoFade();
         col.isActivated = !isFake;
         col.attackNum = attacknum;
