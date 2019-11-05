@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour, IManager
     private float countDownTimer;
     public GameObject explostionPrefab;
     public GameObject DamageLaser;
-
+    public List<GameObject> removeList;
     [SerializeField] AudioManager audioManager;
     [SerializeField] TurnManager turnManager;
     [SerializeField] GameObject resetGameCanvas;
@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour, IManager
     private void Start()
     {
         audioManager.PlayAudioClip("mainMenuBGM", AudioManager.ClipType.BGM);
+        removeList = new List<GameObject>();
     }
 
     private void Update()
@@ -138,7 +139,12 @@ public class GameManager : MonoBehaviour, IManager
         {
             Destroy(controller.gameObject);
         }
+        foreach (GameObject gj in removeList)
+        {
+            Destroy(gj.gameObject);
+        }
 
+        removeList.Clear();
         player1Ships.Clear();
         player2Ships.Clear();
     }
@@ -297,12 +303,12 @@ public class GameManager : MonoBehaviour, IManager
         else if(player1Ships.Count <= 0)
         {
             turnManager.EndGame();
-            EndGame(1);
+            EndGame(2);
         }
         else if(player2Ships.Count <= 0)
         {
             turnManager.EndGame();
-            EndGame(2);
+            EndGame(1);
         }
     }
 
