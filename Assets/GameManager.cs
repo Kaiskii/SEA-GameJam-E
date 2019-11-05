@@ -12,11 +12,7 @@ public enum PlayerNumber
 
 public class GameManager : MonoBehaviour, IManager
 {    
-    List<PlayerController> player1Ships; //Ship Size
-    List<PlayerController> player2Ships;
     [SerializeField] float SecondsForEachTurn;
-    [HideInInspector] public List<PlayerController> tempplayer1Ships; //Ship Size
-    [HideInInspector] public List<PlayerController> tempplayer2Ships;
     private float eachShipTimer;
     private float countDownTimer;
     public GameObject explostionPrefab;
@@ -26,6 +22,13 @@ public class GameManager : MonoBehaviour, IManager
     [SerializeField] GameObject resetGameCanvas;
     [SerializeField] EndGameController endGameController;
     [SerializeField] PauseGameController pauseGameController;
+
+    List<PlayerController> player1Ships; //Ship Size
+    List<PlayerController> player2Ships;
+    List<PlayerController> tempplayer1Ships; //Ship Size
+    List<PlayerController> tempplayer2Ships;
+
+    public int getMaxShipPerPlayer { get {return Mathf.Max(player1Ships.Count, player2Ships.Count); } }
 
     List<GameObject> removeList;
     GameObject mainMenuCanvas;
