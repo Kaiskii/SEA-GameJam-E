@@ -15,20 +15,24 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer spriteRend;
     public Rigidbody2D rb;
     public float rotationZ;
-    Vector2 movement;
     public bool startRecording;
     public bool goToRecording;
     public bool isChosenShip;
-    private bool canShoot = true;
     public GameObject Ark;
     private GameObject ownArk;
     public ParticleSystem trail;
     public GameObject dummyPlayer;
-    private ParticleSystem ownTrail;
     public float health;
-    private float fuel;
-    private float ammo;
-    private float fakeAmmo;
+
+    // Movement
+    Vector2 movement;
+    ParticleSystem ownTrail;
+    float fuel;
+
+    // Shooting
+    bool canShoot = true;
+    float ammo;
+    float fakeAmmo;
 
     [SerializeField] GameManager gameManager { get { return Toolbox.Instance.FindManager<GameManager>(); } }
     [SerializeField] TurnManager _turnManager;
@@ -37,7 +41,6 @@ public class PlayerController : MonoBehaviour
     bool inputRealShot = false;
 
     AudioManager am;
-
     TurnManager turnManager
     {
         get
@@ -49,8 +52,8 @@ public class PlayerController : MonoBehaviour
             _turnManager = value;
         }
     }
+    List<PositionRecords> allPositionRecords = new List<PositionRecords>();
 
-    List<PositionRecords> allPositionRecords;
 
     void Awake()
     {
@@ -66,10 +69,8 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        if (am == null)
-            am = Toolbox.Instance.FindManager<AudioManager>();
+        if (am == null) { am = Toolbox.Instance.FindManager<AudioManager>(); }
 
-        allPositionRecords = new List<PositionRecords>();
         Ark.gameObject.SetActive(false);
         
         // SetCorrectHPLayout();

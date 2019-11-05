@@ -9,26 +9,22 @@ public class ArkCollider : MonoBehaviour
     public int attackNum;
     public PolygonCollider2D col;
     public Animator anim;
-    public Transform parentPlayer;
+    public PlayerController parentPlayer;
     public bool isActivated;
     public bool isUsedAlready = false;
-    private List<PlayerController> shipsInTrigger;
+    private List<PlayerController> shipsInTrigger = new List<PlayerController>();
     public SpriteRenderer HitArea;
 
     AudioManager am;
 
     private void Start()
     {
-        shipsInTrigger = new List<PlayerController>();
-
-        if (am == null)
-            am = Toolbox.Instance.FindManager<AudioManager>();
-
+        if (am == null) { am = Toolbox.Instance.FindManager<AudioManager>(); }
     }
 
     void SetColor()
     {
-        switch (parentPlayer.GetComponent<PlayerController>().playerNumber)
+        switch (parentPlayer.playerNumber)
         {
             case PlayerNumber.NUMBER1:
                 HitArea.color = new Color(0.1792453f, 0.5077058f, 0.7169812f);
@@ -45,7 +41,7 @@ public class ArkCollider : MonoBehaviour
         if(isActivated)
         {
             if (!parentPlayer) return;
-            if (parentPlayer.GetComponent<PlayerController>().playerNumber == PlayerNumber.NUMBER1)
+            if (parentPlayer.playerNumber == PlayerNumber.NUMBER1)
             {
                 if (other.gameObject.tag == "Player2")
                 {
@@ -57,7 +53,7 @@ public class ArkCollider : MonoBehaviour
                
                 
             }
-            else if (parentPlayer.GetComponent<PlayerController>().playerNumber == PlayerNumber.NUMBER2)
+            else if (parentPlayer.playerNumber == PlayerNumber.NUMBER2)
             {
                 if (other.gameObject.tag == "Player1")
                 {
@@ -78,7 +74,7 @@ public class ArkCollider : MonoBehaviour
     {
         if(parentPlayer)
         {
-            if (parentPlayer.GetComponent<PlayerController>().playerNumber == PlayerNumber.NUMBER1)
+            if (parentPlayer.playerNumber == PlayerNumber.NUMBER1)
             {
                 if (other.gameObject.tag == "Player2")
                 {
@@ -86,7 +82,7 @@ public class ArkCollider : MonoBehaviour
                     shipsInTrigger.Remove(other.GetComponent<PlayerController>());
                 }
             }
-            else if (parentPlayer.GetComponent<PlayerController>().playerNumber == PlayerNumber.NUMBER2)
+            else if (parentPlayer.playerNumber == PlayerNumber.NUMBER2)
             {
                 if (other.gameObject.tag == "Player1")
                 {
