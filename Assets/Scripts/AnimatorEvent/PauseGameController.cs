@@ -16,6 +16,7 @@ public class PauseGameController : MonoBehaviour
     public void QuitGame()
     {
         Time.timeScale = 1;
+        gameManager.isPaused = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

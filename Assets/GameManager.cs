@@ -23,11 +23,12 @@ public class GameManager : MonoBehaviour, IManager
     [SerializeField] EndGameController endGameController;
     [SerializeField] PauseGameController pauseGameController;
 
+    public bool isPaused { get; private set; }
+
     List<PlayerController> player1Ships; //Ship Size
     List<PlayerController> player2Ships;
     List<PlayerController> tempplayer1Ships; //Ship Size
     List<PlayerController> tempplayer2Ships;
-
     public int getMaxShipPerPlayer { get {return Mathf.Max(player1Ships.Count, player2Ships.Count); } }
 
     List<GameObject> removeList;
@@ -367,12 +368,14 @@ public class GameManager : MonoBehaviour, IManager
     public void PauseGame()
     {
         Time.timeScale = 0f;
+        isPaused = true;
         pauseGameController.gameObject.SetActive(true);
     }
 
     public void ContinueGame()
     {
         Time.timeScale = 1f;
+        isPaused = false;
         pauseGameController.gameObject.SetActive(false);
     }
 }

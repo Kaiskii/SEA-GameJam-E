@@ -23,18 +23,20 @@ public class TurnManager : MonoBehaviour, IManager
     [SerializeField] public float executionPhaseTime;
     public float currentCountdown { get; private set; }
 
-    [SerializeField] public int numberOfShips;
+    GameManager gameManager;
+    public int numberOfShips { get { return gameManager.getMaxShipPerPlayer; } }
     private int currentShipAccessed;
 
     public void InitializeManager()
     {
+        gameManager = Toolbox.Instance.FindManager<GameManager>();
+
         stateMachine.AddStateRules(TurnState.Idle, new HashSet<TurnState>() { TurnState.Planning });
         stateMachine.AddStateRules(TurnState.Planning, new HashSet<TurnState>() { TurnState.Countdown, TurnState.Idle, TurnState.Planning });
         stateMachine.AddStateRules(TurnState.Countdown, new HashSet<TurnState>() { TurnState.Execution, TurnState.Idle });
         stateMachine.AddStateRules(TurnState.Execution, new HashSet<TurnState>() { TurnState.Planning, TurnState.Idle });
 
         stateMachine.OnChangeStateEvent += OnChangeStateCountdownUpdate;
-        
     }
 
     void OnChangeStateCountdownUpdate(TurnState prevState, TurnState nextState)
@@ -100,10 +102,9 @@ public class TurnManager : MonoBehaviour, IManager
 
     private void Update()
     {
-        Debug.Log(currentState);
+        //Debug.Log(currentState);
 
-        if (currentState == TurnState.Idle) return;
-        if (Time.timeScale == 0) return;
+        if (currentState == TurnState.Idle || gameManager.isPaused) return;
 
         // Addressing Time up scenario
         currentCountdown -= Time.deltaTime;
