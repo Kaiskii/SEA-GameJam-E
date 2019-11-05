@@ -12,21 +12,23 @@ public enum PlayerNumber
 
 public class GameManager : MonoBehaviour, IManager
 {    
-    [HideInInspector] public List<PlayerController> player1Ships; //Ship Size
-    [HideInInspector] public List<PlayerController> player2Ships;
-    public float SecondsForEachTurn;
+    List<PlayerController> player1Ships; //Ship Size
+    List<PlayerController> player2Ships;
+    [SerializeField] float SecondsForEachTurn;
     [HideInInspector] public List<PlayerController> tempplayer1Ships; //Ship Size
     [HideInInspector] public List<PlayerController> tempplayer2Ships;
     private float eachShipTimer;
     private float countDownTimer;
     public GameObject explostionPrefab;
     public GameObject DamageLaser;
-    public List<GameObject> removeList;
     [SerializeField] AudioManager audioManager;
     [SerializeField] TurnManager turnManager;
     [SerializeField] GameObject resetGameCanvas;
     [SerializeField] EndGameController endGameController;
     [SerializeField] PauseGameController pauseGameController;
+
+    List<GameObject> removeList;
+    GameObject mainMenuCanvas;
 
     [Header("Player 1")]
     [SerializeField] GameObject player1Prefab;
@@ -36,7 +38,6 @@ public class GameManager : MonoBehaviour, IManager
     [SerializeField] GameObject player2Prefab;
     [SerializeField] List<Transform> player2SpawnLocation;
 
-    GameObject mainMenuCanvas;
 
     #region Initializing
     public void InitializeManager()
@@ -149,6 +150,28 @@ public class GameManager : MonoBehaviour, IManager
         player2Ships.Clear();
     }
 
+    public void RemovePlayerShip(PlayerController controller, int playerNum)
+    {
+        switch(playerNum)
+        {
+            case 1:
+                if (player1Ships.Contains(controller))
+                { player1Ships.Remove(controller); }
+                break;
+
+            case 2:
+                if (player2Ships.Contains(controller))
+                { player2Ships.Remove(controller); }
+                break;
+        }
+    }
+
+    public void AddDummyPlayer(GameObject dummy)
+    {
+        removeList.Add(dummy);
+    }
+
+    #region Change State Functions
     void CheckChangeStateIdleToPlanning(TurnState prevState, TurnState nextState)
     {
         if (prevState == TurnState.Idle && nextState == TurnState.Planning)
@@ -291,7 +314,8 @@ public class GameManager : MonoBehaviour, IManager
                 }
             }
         }
-    }   
+    }
+    #endregion
 
     void CheckEndGame()
     {

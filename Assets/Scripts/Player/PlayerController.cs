@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using CarrotEngine;
-/*public enum ShipNumber
-{
-    NUMBER1, NUMBER2, NUMBER3, NUMBER4
-}*/
+
 public class PlayerController : MonoBehaviour
 {
     public ShipScriptableObject shipScriptableObject;
@@ -163,20 +160,11 @@ public class PlayerController : MonoBehaviour
         ownArk = newArk;
         dummyPlayer = dumm;
 
-        gameManager.removeList.Add(dummyPlayer);
-
-
-
-
-
+        gameManager.AddDummyPlayer(dummyPlayer);
         //Assigning ColorOverLifeTimeModule
-
 
         //Changing to Red if PlayerNumber1
 
-
-
-        
         //trail
         ParticleSystem newTrail = Instantiate(trail, newArk.transform.position, transform.rotation);
         ParticleSystem.ColorOverLifetimeModule cltm = newTrail.colorOverLifetime;
@@ -306,8 +294,7 @@ public class PlayerController : MonoBehaviour
     public void GetDamage(float damage)
     {
         Debug.Log("GotDamaged");
-         health-= damage;
-        // SetCorrectHPLayout();
+         health -= damage;
         if (health <= 0)
         {
             this.gameObject.SetActive(false);
@@ -315,22 +302,20 @@ public class PlayerController : MonoBehaviour
             {
                 case PlayerNumber.NUMBER1:
                     {
-                        gameManager.player1Ships.Remove(this);
+                        gameManager.RemovePlayerShip(this, 1);
                         Instantiate(gameManager.explostionPrefab, this.transform.position, Quaternion.identity);
                         //am.PlayAudioClip("shipExplode", AudioManager.ClipType.SFX);
                         Destroy(this);
-
                         break;
                     }
 
 
                 case PlayerNumber.NUMBER2:
                     {
-                        gameManager.player2Ships.Remove(this);
+                        gameManager.RemovePlayerShip(this, 2);
                         Instantiate(gameManager.explostionPrefab, this.transform.position, Quaternion.identity);
                         //am.PlayAudioClip("shipExplode", AudioManager.ClipType.SFX);
                         Destroy(this);
-                        //
                         break;
                     }
             }
@@ -378,10 +363,6 @@ public class PlayerController : MonoBehaviour
                     break;
                 }
         }
-        
-        
-        
-        
     }
 
     void SetCorrectHPLayout()
@@ -413,69 +394,29 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        
-       switch(playerNumber)
+        if (other.gameObject.tag == "Player1" || other.gameObject.tag == "Player2")
         {
-            case PlayerNumber.NUMBER1:
-                {
-                    if (other.gameObject.tag == "Player2")
-                    {
-                        gameManager.player1Ships.Remove(this);
-                        gameManager.player2Ships.Remove(other.GetComponent<PlayerController>());
+            gameManager.RemovePlayerShip(this, (int) this.playerNumber);
+            PlayerController collidedPlayer = other.GetComponent<PlayerController>();
+            gameManager.RemovePlayerShip(collidedPlayer, (int)collidedPlayer.playerNumber);
+
                        
+            Instantiate(gameManager.explostionPrefab, transform.position, Quaternion.identity);
+            Instantiate(gameManager.explostionPrefab, other.transform.position, Quaternion.identity);
+            //am.PlayAudioClip("shipExplode", AudioManager.ClipType.SFX);
+            Destroy(this.gameObject);
+            Destroy(other.gameObject);
+        }
+        else if(other.gameObject.tag=="Wall")
+        {
                         
-                        Instantiate(gameManager.explostionPrefab, transform.position, Quaternion.identity);
-                        Instantiate(gameManager.explostionPrefab, other.transform.position, Quaternion.identity);
-                        //am.PlayAudioClip("shipExplode", AudioManager.ClipType.SFX);
-                        Destroy(this.gameObject);
-                        Destroy(other.gameObject);
-                    }
-
-                    if(other.gameObject.tag=="Wall")
-                    {
-                        
-                        gameManager.player1Ships.Remove(this);
-                        Instantiate(gameManager.explostionPrefab, transform.position, Quaternion.identity);
-                        //am.PlayAudioClip("shipExplode", AudioManager.ClipType.SFX);
-                        Destroy(this.gameObject);
-                    }
-                   
-                    break;
-                }
-                
-
-            case PlayerNumber.NUMBER2:
-                {
-                    if (other.gameObject.tag == "Player1")
-                    {
-                        gameManager.player2Ships.Remove(this);
-                        gameManager.player1Ships.Remove(other.GetComponent<PlayerController>());
-                        
-                        Instantiate(gameManager.explostionPrefab, transform.position, Quaternion.identity);
-                        Instantiate(gameManager.explostionPrefab, other.transform.position, Quaternion.identity);
-                        //am.PlayAudioClip("shipExplode", AudioManager.ClipType.SFX);
-                        Destroy(this.gameObject);
-                        Destroy(other.gameObject);
-
-                    }
-                    if (other.gameObject.tag == "Wall")
-                    {
-                        gameManager.player2Ships.Remove(this);
-                        Instantiate(gameManager.explostionPrefab, transform.position, Quaternion.identity);
-                        //am.PlayAudioClip("shipExplode", AudioManager.ClipType.SFX);
-                        Destroy(this.gameObject);
-                        
-                        
-                    }
-
-                    break;
-                }
+            gameManager.RemovePlayerShip(this, (int)this.playerNumber);
+            Instantiate(gameManager.explostionPrefab, transform.position, Quaternion.identity);
+            //am.PlayAudioClip("shipExplode", AudioManager.ClipType.SFX);
+            Destroy(this.gameObject);
         }
     }
 }
-
-
-
 
 public struct PositionRecords
 {
