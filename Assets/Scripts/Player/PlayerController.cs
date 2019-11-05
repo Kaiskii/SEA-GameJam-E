@@ -64,11 +64,6 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void InitializeController()
-    {
-
-    }
-
     void Start()
     {
         if (am == null)
@@ -77,22 +72,16 @@ public class PlayerController : MonoBehaviour
         allPositionRecords = new List<PositionRecords>();
         Ark.gameObject.SetActive(false);
         
-        
-        InitializeController();
-       // SetCorrectHPLayout();
+        // SetCorrectHPLayout();
     }
-
-    
 
     // Update is called once per frame
     void Update()
     {
         if (!isChosenShip && !goToRecording) return;
-        else if (goToRecording && turnManager.currentState==TurnState.Execution) GoToRecordMovements();
-        
+
+        if (goToRecording && turnManager.currentState==TurnState.Execution) GoToRecordMovements();
         if (startRecording) RecordMovements();
-
-
         if (!goToRecording) RotateDummy();
         CheckForShoot();
 
@@ -104,42 +93,20 @@ public class PlayerController : MonoBehaviour
     }
     void CheckForShoot()
     {
-        switch(playerNumber)
+        if((Input.GetKeyDown(KeyCode.W) && playerNumber == PlayerNumber.NUMBER1) ||
+            (Input.GetKeyDown(KeyCode.UpArrow) && playerNumber == PlayerNumber.NUMBER2))
         {
-            case PlayerNumber.NUMBER1:
-                if(Input.GetKeyDown(KeyCode.W))
-                {
-                    if(canShoot && !goToRecording && ammo>0) Shoot();
-
-                }
-                else if (Input.GetKeyDown(KeyCode.S))
-                {
-                    if (canShoot&& !goToRecording&& fakeAmmo > 0) FakeShoot();
-
-                }
-                else
-                {
-                    inputFakeShot = false;
-                    inputRealShot = false;
-                }
-                break;
-            case PlayerNumber.NUMBER2:
-                if (Input.GetKeyDown(KeyCode.UpArrow))
-                {
-                    if (canShoot && !goToRecording && ammo > 0) Shoot();
-
-                }
-                else if (Input.GetKeyDown(KeyCode.DownArrow))
-                {
-                    if (canShoot && !goToRecording && fakeAmmo>0) FakeShoot();
-
-                }
-                else
-                {
-                    inputFakeShot = false;
-                    inputRealShot = false;
-                }
-                break;
+            if(canShoot && !goToRecording && ammo > 0) Shoot();
+        }
+        else if ((Input.GetKeyDown(KeyCode.S) && playerNumber == PlayerNumber.NUMBER1) ||
+            (Input.GetKeyDown(KeyCode.DownArrow) && playerNumber == PlayerNumber.NUMBER2))
+        {
+            if (canShoot && !goToRecording && fakeAmmo > 0) FakeShoot();
+        }
+        else
+        {
+            inputFakeShot = false;
+            inputRealShot = false;
         }
     }
 
@@ -191,22 +158,16 @@ public class PlayerController : MonoBehaviour
         newArk.gameObject.SetActive(true);
         newArk.transform.SetParent(dumm.transform);
         newArk.transform.localPosition = Vector3.zero;
-
-        
-
-        //
-
     }
 
     public void StartGoingToRecords()
     {
         goToRecording = true;
-        
     }
+
     private void FixedUpdate()
     {
-        if (!isChosenShip) return;
-        if (!goToRecording) MoveDummy();
+        if (isChosenShip && !goToRecording) MoveDummy();
     }
 
     void RecordMovements()
