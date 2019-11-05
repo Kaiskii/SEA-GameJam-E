@@ -37,60 +37,37 @@ public class ArkCollider : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (isUsedAlready) return;
+        if (isUsedAlready || !parentPlayer) return;
         if(isActivated)
         {
-            if (!parentPlayer) return;
-            if (parentPlayer.playerNumber == PlayerNumber.NUMBER1)
+            if (parentPlayer.playerNumber == PlayerNumber.NUMBER1 && other.gameObject.tag == "Player2")
             {
-                if (other.gameObject.tag == "Player2")
-                {
-                    shipsInTrigger.Add(other.GetComponent<PlayerController>());
-                    
-                    
-                   
-                }
-               
-                
+                shipsInTrigger.Add(other.GetComponent<PlayerController>());
             }
-            else if (parentPlayer.playerNumber == PlayerNumber.NUMBER2)
+            else if (parentPlayer.playerNumber == PlayerNumber.NUMBER2 && other.gameObject.tag == "Player1")
             {
-                if (other.gameObject.tag == "Player1")
+                shipsInTrigger.Add(other.GetComponent<PlayerController>());
+                foreach (PlayerController obj in shipsInTrigger)
                 {
-                    shipsInTrigger.Add(other.GetComponent<PlayerController>());
-                    foreach (PlayerController obj in shipsInTrigger)
-                    {
-                        obj.GetDamage(35);
-                    }
-                    
+                    obj.GetDamage(35);
                 }
-                
             }
         }
-       
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         if(parentPlayer)
         {
-            if (parentPlayer.playerNumber == PlayerNumber.NUMBER1)
+            if (parentPlayer.playerNumber == PlayerNumber.NUMBER1 && other.gameObject.tag == "Player2")
             {
-                if (other.gameObject.tag == "Player2")
-                {
-
-                    shipsInTrigger.Remove(other.GetComponent<PlayerController>());
-                }
+                shipsInTrigger.Remove(other.GetComponent<PlayerController>());
             }
-            else if (parentPlayer.playerNumber == PlayerNumber.NUMBER2)
+            else if (parentPlayer.playerNumber == PlayerNumber.NUMBER2 && other.gameObject.tag == "Player1")
             {
-                if (other.gameObject.tag == "Player1")
-                {
-                    shipsInTrigger.Remove(other.GetComponent<PlayerController>());
-                }
+                shipsInTrigger.Remove(other.GetComponent<PlayerController>());
             }
         }
-        
     }
 
     public void DoDamageToList()
