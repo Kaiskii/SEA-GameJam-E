@@ -163,6 +163,7 @@ public class PlayerController : MonoBehaviour
         ownArk = newArk;
         dummyPlayer = dumm;
 
+        gameManager.removeList.Add(dummyPlayer);
 
 
 
