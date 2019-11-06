@@ -17,16 +17,17 @@ public class GameManager : MonoBehaviour, IManager
     private float countDownTimer;
     public GameObject explostionPrefab;
     public GameObject DamageLaser;
+    public bool isPaused { get; private set; }
+
+    // Managers
     [SerializeField] AudioManager audioManager;
     [SerializeField] TurnManager turnManager;
     [SerializeField] GameObject resetGameCanvas;
     [SerializeField] EndGameController endGameController;
     [SerializeField] PauseGameController pauseGameController;
 
-    public bool isPaused { get; private set; }
-
-    List<PlayerController> player1Ships; //Ship Size
-    List<PlayerController> player2Ships;
+    List<PlayerController> player1Ships = new List<PlayerController>(); //Ship Size
+    List<PlayerController> player2Ships = new List<PlayerController>();
     List<PlayerController> tempplayer1Ships; //Ship Size
     List<PlayerController> tempplayer2Ships;
     public int getMaxShipPerPlayer { get {return Mathf.Max(player1Ships.Count, player2Ships.Count); } }
