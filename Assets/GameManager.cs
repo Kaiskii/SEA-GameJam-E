@@ -325,23 +325,21 @@ public class GameManager : MonoBehaviour, IManager
     {
         if(player1Ships.Count <= 0 && player2Ships.Count <= 0)
         {
-            turnManager.EndGame();
             EndGame(0);
         }
         else if(player1Ships.Count <= 0)
         {
-            turnManager.EndGame();
             EndGame(2);
         }
         else if(player2Ships.Count <= 0)
         {
-            turnManager.EndGame();
             EndGame(1);
         }
     }
 
     void EndGame(int playerWinNum)
     {
+        turnManager.EndGame();
         Debug.LogWarning("END GAME");
         DestroyAllShip();
 
