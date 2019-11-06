@@ -215,20 +215,19 @@ public class GameManager : MonoBehaviour, IManager
             if (tempplayer2Ships.Count > 0)
             {
                 tempplayer2Ships[0].EndTurn();
-
                 tempplayer2Ships.RemoveAt(0);
 
             }
 
-
-            if (tempplayer1Ships.Count != 0 && tempplayer2Ships.Count != 0)
+            if (tempplayer1Ships.Count != 0)
             {
                 tempplayer1Ships[0].MakeThisChosen();
-                tempplayer2Ships[0].MakeThisChosen();
             }
 
-
-
+            if(tempplayer2Ships.Count != 0)
+            {
+                tempplayer2Ships[0].MakeThisChosen();
+            }
         }
     }
 
@@ -346,24 +345,7 @@ public class GameManager : MonoBehaviour, IManager
         Debug.LogWarning("END GAME");
         DestroyAllShip();
 
-        switch(playerWinNum)
-        {
-            case 0:
-                Debug.LogWarning("TIE GAME");
-                endGameController.setPlayerWin(0);
-                break;
-
-            case 1:
-                Debug.LogWarning("PLAYER 1 WIN");
-                endGameController.setPlayerWin(1);
-                break;
-
-            case 2:
-                Debug.LogWarning("PLAYER 2 WIN");
-                endGameController.setPlayerWin(2);
-                break;
-        }
-
+        endGameController.setPlayerWin(playerWinNum);
     }
 
     public void PauseGame()
