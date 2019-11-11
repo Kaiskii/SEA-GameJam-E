@@ -46,7 +46,62 @@ MonoBehaviour:
   planningPhaseTime: 4
   countdownPhaseTime: 4
   executionPhaseTime: 4
-  numberOfShips: 3
+--- !u!1 &2270940634323884533
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7353940127687337220}
+  - component: {fileID: 7922712440394658566}
+  m_Layer: 0
+  m_Name: UIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7353940127687337220
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2270940634323884533}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2369569767492173740}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7922712440394658566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2270940634323884533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55d279d0008607549bd858cadb6f0621, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  UIPrefabList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &2879181742379103709
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,6 +187,7 @@ Transform:
   - {fileID: 5869624259567421043}
   - {fileID: 9209650343475263342}
   - {fileID: 1956278091774275349}
+  - {fileID: 7353940127687337220}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -148,6 +204,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugMode: 0
+  allowMergeToolbox: 0
+  mergeMethod: 0
 --- !u!1 &5869624259567420813
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,7 +230,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5869624259567420813}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 458.1328, y: 378.58612, z: -155.86249}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -191,24 +249,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 216187b3d43aee04e9c40827ac2e4718, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1Ships:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  player2Ships:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   SecondsForEachTurn: 0.9
-  tempplayer1Ships:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  tempplayer2Ships:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  am: {fileID: 1955800693}
-  turnManager: {fileID: 583960858854423076}
-  templateTrail: {fileID: 5507704899316335159, guid: e4a5fb9f52d1190bd9bab0ea5f737f2c,
+  explostionPrefab: {fileID: 2632957880410982208, guid: c227d118c07bf204fbda578b9af5dfff,
     type: 3}
+  DamageLaser: {fileID: 0}
+  audioManager: {fileID: 1955800693}
+  turnManager: {fileID: 583960858854423076}
+  resetGameCanvas: {fileID: 0}
+  endGameController: {fileID: 0}
+  pauseGameController: {fileID: 0}
+  player1Prefab: {fileID: 1914543864192267527, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
+    type: 3}
+  player1SpawnLocation:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  player2Prefab: {fileID: 1914543864192267527, guid: 22b77af6eb5b49747a850e36d14e2730,
+    type: 3}
+  player2SpawnLocation:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

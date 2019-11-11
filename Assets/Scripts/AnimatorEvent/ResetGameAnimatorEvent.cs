@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class ResetGameAnimatorEvent : MonoBehaviour
 {
-
     private GameManager gameManager { get { return Toolbox.Instance.FindManager<GameManager>(); } }
 
     public void OnResetGameEnd()
