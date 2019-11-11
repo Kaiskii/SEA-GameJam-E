@@ -117,32 +117,36 @@ namespace CarrotEngine
             return newManager;
         }
 
-
+        #region Merge Toolbox
+        /// <summary>
+        /// Instance: First Instantiated Toolbox
+        /// this: Duplicate Toolbox in another scene
+        /// </summary>
         private void MergeToolbox()
         {
             if (debugMode) { ConsoleDebugger.LogWarning("Merging Toolbox: " + this.GetInstanceID()); }
             for (int i = 0; i < managerList.Count; ++i)
             {
-                if (Instance.CheckIfManagerExist(this.managerList[i].GetType()) && Instance.mergeMethod != ToolboxMerge.KeepOldManager)
+                if (Instance.mergeMethod != ToolboxMerge.KeepOldManager)
                 {
-                    Instance.ReplaceManager(this.managerList[i]);
+                    Instance.RemoveIfManagerExist(this.managerList[i].GetType());
                 }
-                else
-                {
-                    Instance.MoveManager(this.managerList[i]);
-                }
+
+                Instance.MoveManager(this.managerList[i]);
             }
             if (debugMode) { ConsoleDebugger.Log("Merge Toolbox Complete: " + this.GetInstanceID()); }
 
             DestroyToolbox();
         }
 
-        private bool CheckIfManagerExist(Type managerType)
+        private bool RemoveIfManagerExist(Type managerType)
         {
             for(int i = 0; i < managerList.Count; ++i)
             {
                 if(managerList[i].GetType() == managerType)
                 {
+                    Destroy(((MonoBehaviour)managerList[i]).gameObject);
+                    managerList.RemoveAt(i);
                     return true;
                 }
             }
@@ -151,7 +155,7 @@ namespace CarrotEngine
         }
 
         /// <summary>
-        /// Move Manager to this Toolbox
+        /// Move Manager to 'this' Toolbox
         /// </summary>
         /// <param name="manager"></param>
         private void MoveManager(IManager manager)
@@ -161,24 +165,6 @@ namespace CarrotEngine
             managerObject.transform.parent = this.gameObject.transform;
             managerList.Add(manager);
         }
-
-        /// <summary>
-        /// Replace Manager in this Toolbox with new Manager
-        /// </summary>
-        /// <param name="newManager"></param>
-        private void ReplaceManager(IManager newManager)
-        {
-            for (int i = 0; i < managerList.Count; ++i)
-            {
-                if (managerList[i].GetType() == newManager.GetType())
-                {
-                    Destroy(((MonoBehaviour)managerList[i]).gameObject);
-                    managerList.RemoveAt(i);
-                    break;
-                }
-            }
-
-            MoveManager(newManager);
-        }
+        #endregion Merge Toolbox
     }
 }
