@@ -6,57 +6,45 @@ namespace CarrotEngine
 {
     public static class ConsoleDebugger
     {
-        public static void Log(string debug, object source = null)
+        public static void Log(string debug)
         {
 #if UNITY_EDITOR
-            debug = DebugSource(debug, source);
-
             Debug.Log(debug);
 #endif
         }
 
-        public static void LogFormat(string debug, object source, params object[] args)
+        public static void LogFormat(string debug, params object[] args)
         {
 #if UNITY_EDITOR
-            debug = DebugSource(debug, source);
-
             Debug.LogFormat(debug, args);
 #endif
         }
 
-        public static void LogWarning(string debug, object source = null)
+        public static void LogWarning(string debug)
         {
 #if UNITY_EDITOR
-            debug = DebugSource(debug, source);
-
             Debug.LogWarning(debug);
 #endif
         }
 
-        public static void LogWarningFormat(string debug, object source, params object[] args)
+        public static void LogWarningFormat(string debug,  params object[] args)
         {
 #if UNITY_EDITOR
-            debug = DebugSource(debug, source);
-
             Debug.LogWarningFormat(debug, args);
 #endif
         }
 
-        public static void LogError(string debug, object source = null)
+        public static void LogError(string debug)
         {
 #if UNITY_EDITOR
-            debug = DebugSource(debug, source);
-
             Debug.LogError(debug);
 #endif
         }
 
-        public static void LogErrorFormat(string debug, object source, params object[] args)
+        public static void LogErrorFormat(string debug, params object[] args)
         {
 #if UNITY_EDITOR
-            debug = DebugSource(debug, source);
-
-            Debug.LogErrorFormat(debug, source, args);
+            Debug.LogErrorFormat(debug, args);
 #endif
         }
 

@@ -266,8 +266,8 @@ namespace CarrotEngine
                 timer -= Time.deltaTime;
                 if (bgmAudioSource.volume == 1f || bgmAudioSource.volume == 0f)
                 {
-                    ConsoleDebugger.Log("Audio source is already at 0 or 1, stopping fade." + fade.ToString(), this);
-                    ConsoleDebugger.Log("Fade lasted for (seconds): " + (duration - timer).ToString(), this);
+                    ConsoleDebugger.Log("Audio source is already at 0 or 1, stopping fade." + fade.ToString());
+                    ConsoleDebugger.Log("Fade lasted for (seconds): " + (duration - timer).ToString());
                     yield break;
                 }
             }

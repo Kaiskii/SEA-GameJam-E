@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Sirenix.OdinInspector;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace CarrotEngine
@@ -15,6 +17,18 @@ namespace CarrotEngine
 
         private List<IManager> managerList = new List<IManager>();
 
+
+        [Header("Merge Toolbox")]
+        [SerializeField] private bool allowMergeToolbox;
+
+        private enum ToolboxMerge
+        {
+            ReplaceWithNewManager,
+            KeepOldManager,
+        }
+
+        [EnableIf("allowMergeToolbox"), SerializeField] private ToolboxMerge mergeMethod;
+
         /// <summary>
         ///  Calls all the necessary managers upon game start
         /// </summary>
@@ -22,15 +36,17 @@ namespace CarrotEngine
         {
             float time = Time.realtimeSinceStartup;
 
-            if (Instance == null) Instance = this;
-            else
+
+            if (Instance == null)
             {
-                if (debugMode) ConsoleDebugger.Log("Destroying second Toolbox instance");
-                Destroy(this);
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else if (!Instance.allowMergeToolbox)
+            {
+                DestroyToolbox();
                 return;
             }
-
-            //DontDestroyOnLoad(gameObject);
 
             // Adds all manager to list first
             foreach (IManager manager in gameObject.GetComponentsInChildren<IManager>(true))
@@ -42,10 +58,20 @@ namespace CarrotEngine
             for (int i = 0; i < managerList.Count; ++i)
             {
                 managerList[i].InitializeManager();
-                if (debugMode) ConsoleDebugger.LogFormat("Manager initialize timestamp: {0}", Time.realtimeSinceStartup - time);
+                if (debugMode) { ConsoleDebugger.LogFormat("Manager initialize timestamp: {0}", Time.realtimeSinceStartup - time); }
             }
 
-            if (debugMode) ConsoleDebugger.LogFormat("Toolbox initialize timestamp: {0}", Time.realtimeSinceStartup - time);
+            if (debugMode) { ConsoleDebugger.LogFormat("Toolbox initialize timestamp: {0}", Time.realtimeSinceStartup - time); }
+
+            if (this != Instance && Instance.allowMergeToolbox) { MergeToolbox(); }
+        }
+
+        private void DestroyToolbox()
+        {
+            if (Instance.debugMode) { ConsoleDebugger.Log("Destroying second Toolbox instance"); }
+
+            Destroy(this.gameObject);
+            return;
         }
 
         /// <summary>
@@ -62,14 +88,7 @@ namespace CarrotEngine
             T manager = FindManager<T>();
             if (manager != null) { return manager; }
 
-            ConsoleDebugger.Log("{0} adding component to ToolBox", typeof(T).ToString());
-
-            GameObject newObject = new GameObject(typeof(T).ToString());
-            newObject.transform.parent = this.transform;
-            T newManager = newObject.AddComponent<T>();
-            managerList.Add(newManager);
-            newManager.InitializeManager();
-            return newManager;
+            return AddManager<T>();
         }
 
         public T FindManager<T>() where T : MonoBehaviour, IManager
@@ -83,8 +102,83 @@ namespace CarrotEngine
                 }
             }
 
-            ConsoleDebugger.LogFormat("{0} doesn't exist", typeof(T).ToString());
+            ConsoleDebugger.LogWarningFormat("{0} doesn't exist", typeof(T).ToString());
             return null;
+        }
+        private T AddManager<T>() where T : MonoBehaviour, IManager
+        {
+            ConsoleDebugger.LogFormat("{0} adding component to ToolBox", typeof(T).ToString());
+
+            GameObject newObject = new GameObject(typeof(T).ToString());
+            newObject.transform.parent = this.transform;
+            T newManager = newObject.AddComponent<T>();
+            managerList.Add(newManager);
+            newManager.InitializeManager();
+            return newManager;
+        }
+
+
+        private void MergeToolbox()
+        {
+            if (debugMode) { ConsoleDebugger.LogWarning("Merging Toolbox: " + this.GetInstanceID()); }
+            for (int i = 0; i < managerList.Count; ++i)
+            {
+                if (Instance.CheckIfManagerExist(this.managerList[i].GetType()) && Instance.mergeMethod != ToolboxMerge.KeepOldManager)
+                {
+                    Instance.ReplaceManager(this.managerList[i]);
+                }
+                else
+                {
+                    Instance.MoveManager(this.managerList[i]);
+                }
+            }
+            if (debugMode) { ConsoleDebugger.Log("Merge Toolbox Complete: " + this.GetInstanceID()); }
+
+            DestroyToolbox();
+        }
+
+        private bool CheckIfManagerExist(Type managerType)
+        {
+            for(int i = 0; i < managerList.Count; ++i)
+            {
+                if(managerList[i].GetType() == managerType)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Move Manager to this Toolbox
+        /// </summary>
+        /// <param name="manager"></param>
+        private void MoveManager(IManager manager)
+        {
+            GameObject managerObject = ((MonoBehaviour) manager).gameObject;
+
+            managerObject.transform.parent = this.gameObject.transform;
+            managerList.Add(manager);
+        }
+
+        /// <summary>
+        /// Replace Manager in this Toolbox with new Manager
+        /// </summary>
+        /// <param name="newManager"></param>
+        private void ReplaceManager(IManager newManager)
+        {
+            for (int i = 0; i < managerList.Count; ++i)
+            {
+                if (managerList[i].GetType() == newManager.GetType())
+                {
+                    Destroy(((MonoBehaviour)managerList[i]).gameObject);
+                    managerList.RemoveAt(i);
+                    break;
+                }
+            }
+
+            MoveManager(newManager);
         }
     }
 }
