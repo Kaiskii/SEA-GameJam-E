@@ -23,14 +23,12 @@ public class TurnManager : MonoBehaviour, IManager
     [SerializeField] public float executionPhaseTime;
     public float currentCountdown { get; private set; }
 
-    GameManager gameManager;
+    GameManager gameManager { get { return Toolbox.Instance.FindManager<GameManager>(); } }
     public int numberOfShips { get { return gameManager.getMaxShipPerPlayer; } }
     private int currentShipAccessed;
 
     public void InitializeManager()
     {
-        gameManager = Toolbox.Instance.FindManager<GameManager>();
-
         stateMachine.AddStateRules(TurnState.Idle, new HashSet<TurnState>() { TurnState.Planning });
         stateMachine.AddStateRules(TurnState.Planning, new HashSet<TurnState>() { TurnState.Countdown, TurnState.Idle, TurnState.Planning });
         stateMachine.AddStateRules(TurnState.Countdown, new HashSet<TurnState>() { TurnState.Execution, TurnState.Idle });

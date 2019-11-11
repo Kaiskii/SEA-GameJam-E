@@ -1548,6 +1548,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1955800693, guid: 6c1ebc9f422f53548b8dd15849869aca,
         type: 3}
+    - target: {fileID: 2529987264207079767, guid: 6c1ebc9f422f53548b8dd15849869aca,
+        type: 3}
+      propertyPath: multipleSceneToolbox
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2529987264207079767, guid: 6c1ebc9f422f53548b8dd15849869aca,
+        type: 3}
+      propertyPath: allowMultipleToolbox
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2529987264207079767, guid: 6c1ebc9f422f53548b8dd15849869aca,
+        type: 3}
+      propertyPath: debugMode
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6c1ebc9f422f53548b8dd15849869aca, type: 3}
 --- !u!1001 &1425245817
