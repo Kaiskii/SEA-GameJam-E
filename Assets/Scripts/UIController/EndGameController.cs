@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class EndGameController : MonoBehaviour
 {
+    UIManager uiManager { get { return Toolbox.Instance.FindManager<UIManager>(); } }
     GameManager gameManager { get { return Toolbox.Instance.FindManager<GameManager>(); } }
 
     [SerializeField] Image winImage;
@@ -18,7 +19,7 @@ public class EndGameController : MonoBehaviour
     [SerializeField] Sprite player2Sprite;
     [SerializeField] Sprite tieSprite;
 
-    public GameObject resetGame;
+    GameObject resetGame;
 
     public void setPlayerWin(int playerNum)
     {
@@ -48,6 +49,11 @@ public class EndGameController : MonoBehaviour
 
     public void ResetGame()
     {
+        if(resetGame == null)
+        {
+            resetGame = uiManager.GetPanel("ResetGame");
+        }
+
         resetGame.SetActive(true);
         this.gameObject.SetActive(false);
     }

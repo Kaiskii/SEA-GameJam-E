@@ -15,16 +15,15 @@ public class GameManager : MonoBehaviour, IManager
     [SerializeField] float SecondsForEachTurn;
     private float eachShipTimer;
     private float countDownTimer;
-    public GameObject explostionPrefab;
+    public GameObject explosionPrefab;
     public GameObject DamageLaser;
     public bool isPaused { get; private set; }
 
     // Managers
+    [SerializeField] UIManager uiManager;
     [SerializeField] AudioManager audioManager;
     [SerializeField] TurnManager turnManager;
-    [SerializeField] GameObject resetGameCanvas;
-    [SerializeField] EndGameController endGameController;
-    [SerializeField] PauseGameController pauseGameController;
+
 
     List<PlayerController> player1Ships = new List<PlayerController>(); //Ship Size
     List<PlayerController> player2Ships = new List<PlayerController>();
@@ -43,6 +42,9 @@ public class GameManager : MonoBehaviour, IManager
     [SerializeField] GameObject player2Prefab;
     [SerializeField] List<Transform> player2SpawnLocation;
 
+    ResetGameController resetGameController { get { return uiManager.GetPanel<ResetGameController>("ResetGame"); } }
+    EndGameController endGameController { get { return uiManager.GetPanel<EndGameController>("EndGame"); } }
+    PauseGameController pauseGameController { get { return uiManager.GetPanel<PauseGameController>("PauseGame"); } }
 
     #region Initializing
     public void InitializeManager()
@@ -155,19 +157,18 @@ public class GameManager : MonoBehaviour, IManager
         player2Ships.Clear();
     }
 
-    public void RemovePlayerShip(PlayerController controller, int playerNum)
+    public void RemovePlayerShip(PlayerController controller)
     {
-        switch(playerNum)
+        if (player1Ships.Contains(controller))
         {
-            case 1:
-                if (player1Ships.Contains(controller))
-                { player1Ships.Remove(controller); }
-                break;
+            Debug.Log("Remove P1");
+            player1Ships.Remove(controller);
+        }
 
-            case 2:
-                if (player2Ships.Contains(controller))
-                { player2Ships.Remove(controller); }
-                break;
+        if (player2Ships.Contains(controller))
+        {
+            Debug.Log("Remove P2");
+            player2Ships.Remove(controller);
         }
     }
 

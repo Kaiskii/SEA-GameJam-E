@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResetGameAnimatorEvent : MonoBehaviour
+public class ResetGameController : MonoBehaviour
 {
     private GameManager gameManager { get { return Toolbox.Instance.FindManager<GameManager>(); } }
 

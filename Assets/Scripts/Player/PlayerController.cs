@@ -203,32 +203,31 @@ public class PlayerController : MonoBehaviour
 
     void RotateDummy()
     {
+
         switch(playerNumber)
         {
             case PlayerNumber.NUMBER1:
                 {
                     rotationZ -= Input.GetAxisRaw("Player1Horizontal") * shipData.turnSpeed;
-                    dummyPlayer.transform.eulerAngles = new Vector3(0, 0,transform.eulerAngles.z+ rotationZ);
-
                     break;
                 }
+
             case PlayerNumber.NUMBER2:
                 {
                     rotationZ -= Input.GetAxisRaw("Player2Horizontal") * shipData.turnSpeed;
-                    dummyPlayer.transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z+rotationZ);
-
                     break;
                 }
         }
         
-        
+        dummyPlayer.transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z+rotationZ);
     }
+
     public void Destroy()
     {
         
     }
 
-     void Shoot()
+    void Shoot()
     {
         Debug.Log("Shoot");
         am.PlayAudioClip("plannedFire", AudioManager.ClipType.SFX);
@@ -238,7 +237,6 @@ public class PlayerController : MonoBehaviour
         ammo--;
         inputRealShot = true;
         StartCoroutine(ShootDelay());
-        
     }
 
     void FakeShoot()
@@ -256,75 +254,49 @@ public class PlayerController : MonoBehaviour
     public void GetDamage(float damage)
     {
         Debug.Log("GotDamaged");
-         health -= damage;
+        health -= damage;
         if (health <= 0)
         {
             this.gameObject.SetActive(false);
-            switch (playerNumber)
-            {
-                case PlayerNumber.NUMBER1:
-                    {
-                        gameManager.RemovePlayerShip(this, 1);
-                        Instantiate(gameManager.explostionPrefab, this.transform.position, Quaternion.identity);
-                        //am.PlayAudioClip("shipExplode", AudioManager.ClipType.SFX);
-                        Destroy(this);
-                        break;
-                    }
 
-
-                case PlayerNumber.NUMBER2:
-                    {
-                        gameManager.RemovePlayerShip(this, 2);
-                        Instantiate(gameManager.explostionPrefab, this.transform.position, Quaternion.identity);
-                        //am.PlayAudioClip("shipExplode", AudioManager.ClipType.SFX);
-                        Destroy(this);
-                        break;
-                    }
-            }
+            gameManager.RemovePlayerShip(this);
+            Instantiate(gameManager.explosionPrefab, this.transform.position, Quaternion.identity);
+            //am.PlayAudioClip("shipExplode", AudioManager.ClipType.SFX);
+            Destroy(this.gameObject);
         }
-       
-       
     }
+
     void MoveDummy()
     {
-        
-        switch(playerNumber)
+        float hInput = 0;
+        float vInput = 0;
+
+        switch (playerNumber)
         {
             case PlayerNumber.NUMBER1:
                 {
-                    float hInput = Input.GetAxisRaw("Player1Horizontal");
-                    float vInput = Input.GetAxisRaw("Player1Vertical");
-                    Vector2 input = new Vector2(hInput, vInput);
-                    movement.x = hInput;
-                    movement.y = vInput;
-
-                    // if (input.magnitude > 0) Instantiate(trailGO, transform.position, Quaternion.identity);
-                    Vector3 moveDirection = dummyPlayer.transform.TransformDirection(Vector3.up) * 1 * shipData.normalSpeed * Time.fixedDeltaTime;
-                    Vector2 rbMove = new Vector2(moveDirection.x, moveDirection.y);
-
-
-
-                    dummyPlayer.GetComponent<Rigidbody2D>().MovePosition(dummyPlayer.GetComponent<Rigidbody2D>().position + rbMove * shipData.normalSpeed * Time.fixedDeltaTime);
+                    hInput = Input.GetAxisRaw("Player1Horizontal");
+                    vInput = Input.GetAxisRaw("Player1Vertical");
                     break;
                 }
+
             case PlayerNumber.NUMBER2:
                 {
-                    float hInput = Input.GetAxisRaw("Player2Horizontal");
-                    float vInput = Input.GetAxisRaw("Player2Vertical");
-                    Vector2 input = new Vector2(hInput, vInput);
-                    movement.x = hInput;
-                    movement.y = vInput;
-
-                    // if (input.magnitude > 0) Instantiate(trailGO, transform.position, Quaternion.identity);
-                    Vector3 moveDirection = dummyPlayer.transform.TransformDirection(Vector3.up) * shipData.normalSpeed * Time.fixedDeltaTime;
-                    Vector2 rbMove = new Vector2(moveDirection.x, moveDirection.y);
-
-
-
-                    dummyPlayer.GetComponent<Rigidbody2D>().MovePosition(dummyPlayer.GetComponent<Rigidbody2D>().position + rbMove * shipData.normalSpeed * Time.fixedDeltaTime);
-                    break;
+                    hInput = Input.GetAxisRaw("Player2Horizontal");
+                    vInput = Input.GetAxisRaw("Player2Vertical");
+                     break;
                 }
         }
+
+        Vector2 input = new Vector2(hInput, vInput);
+        movement.x = hInput;
+        movement.y = vInput;
+
+        // if (input.magnitude > 0) Instantiate(trailGO, transform.position, Quaternion.identity);
+        Vector3 moveDirection = dummyPlayer.transform.TransformDirection(Vector3.up) * shipData.normalSpeed * Time.fixedDeltaTime;
+        Vector2 rbMove = new Vector2(moveDirection.x, moveDirection.y);
+
+        dummyPlayer.GetComponent<Rigidbody2D>().MovePosition(dummyPlayer.GetComponent<Rigidbody2D>().position + rbMove * shipData.normalSpeed * Time.fixedDeltaTime);
     }
 
     void SetCorrectHPLayout()
@@ -333,7 +305,7 @@ public class PlayerController : MonoBehaviour
         {
             spriteRend.color = Color.blue;
         }
-       else if(health<50)
+        else if(health<50)
         {
             spriteRend.color = Color.white;
         }
@@ -358,13 +330,13 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.tag == "Player1" || other.gameObject.tag == "Player2")
         {
-            gameManager.RemovePlayerShip(this, (int) this.playerNumber);
+            gameManager.RemovePlayerShip(this);
             PlayerController collidedPlayer = other.GetComponent<PlayerController>();
-            gameManager.RemovePlayerShip(collidedPlayer, (int)collidedPlayer.playerNumber);
+            gameManager.RemovePlayerShip(collidedPlayer);
 
                        
-            Instantiate(gameManager.explostionPrefab, transform.position, Quaternion.identity);
-            Instantiate(gameManager.explostionPrefab, other.transform.position, Quaternion.identity);
+            Instantiate(gameManager.explosionPrefab, transform.position, Quaternion.identity);
+            Instantiate(gameManager.explosionPrefab, other.transform.position, Quaternion.identity);
             //am.PlayAudioClip("shipExplode", AudioManager.ClipType.SFX);
             Destroy(this.gameObject);
             Destroy(other.gameObject);
@@ -372,8 +344,8 @@ public class PlayerController : MonoBehaviour
         else if(other.gameObject.tag=="Wall")
         {
                         
-            gameManager.RemovePlayerShip(this, (int)this.playerNumber);
-            Instantiate(gameManager.explostionPrefab, transform.position, Quaternion.identity);
+            gameManager.RemovePlayerShip(this);
+            Instantiate(gameManager.explosionPrefab, transform.position, Quaternion.identity);
             //am.PlayAudioClip("shipExplode", AudioManager.ClipType.SFX);
             Destroy(this.gameObject);
         }
