@@ -204,6 +204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugMode: 0
+  dontDestroyOnLoad: 0
   allowMergeToolbox: 0
   mergeMethod: 0
 --- !u!1 &5869624259567420813
@@ -250,8 +251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SecondsForEachTurn: 0.9
-  explostionPrefab: {fileID: 2632957880410982208, guid: c227d118c07bf204fbda578b9af5dfff,
-    type: 3}
+  explosionPrefab: {fileID: 0}
   DamageLaser: {fileID: 0}
   uiManager: {fileID: 7922712440394658566}
   audioManager: {fileID: 1955800693}
