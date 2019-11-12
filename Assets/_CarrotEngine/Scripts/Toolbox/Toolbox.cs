@@ -14,6 +14,7 @@ namespace CarrotEngine
         }
 
         [SerializeField] private bool debugMode = false;
+        [SerializeField] private bool dontDestroyOnLoad = true;
 
         private List<IManager> managerList = new List<IManager>();
 
@@ -40,7 +41,7 @@ namespace CarrotEngine
             if (Instance == null)
             {
                 Instance = this;
-                DontDestroyOnLoad(gameObject);
+                if (dontDestroyOnLoad) { DontDestroyOnLoad(gameObject); }
             }
             else if (!Instance.allowMergeToolbox)
             {
