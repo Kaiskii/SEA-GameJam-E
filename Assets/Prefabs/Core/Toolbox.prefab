@@ -99,9 +99,9 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   UIPrefabList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 3068072266417354282, guid: ae50e5bc79c18bb4b8c55d19abc5e340, type: 3}
+  - {fileID: 5676122014859695557, guid: e855f38baae80bc4bbdbf08d10ed6537, type: 3}
+  - {fileID: 1299817811142848745, guid: 3863df07dcd69fe499fe51100090a002, type: 3}
 --- !u!1 &2879181742379103709
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,11 +253,9 @@ MonoBehaviour:
   explostionPrefab: {fileID: 2632957880410982208, guid: c227d118c07bf204fbda578b9af5dfff,
     type: 3}
   DamageLaser: {fileID: 0}
+  uiManager: {fileID: 7922712440394658566}
   audioManager: {fileID: 1955800693}
   turnManager: {fileID: 583960858854423076}
-  resetGameCanvas: {fileID: 0}
-  endGameController: {fileID: 0}
-  pauseGameController: {fileID: 0}
   player1Prefab: {fileID: 1914543864192267527, guid: 0cfebfaa7bc8df14dac0891ebcb9f1fd,
     type: 3}
   player1SpawnLocation:
