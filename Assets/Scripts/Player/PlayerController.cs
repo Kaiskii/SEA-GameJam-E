@@ -24,6 +24,16 @@ public class PlayerController : MonoBehaviour
     public GameObject dummyPlayer;
     public float health;
 
+
+
+
+
+
+
+    //Laser
+    public Transform laserLoc;
+
+
     // Movement
     Vector2 movement;
     ParticleSystem ownTrail;
@@ -72,6 +82,7 @@ public class PlayerController : MonoBehaviour
         if (am == null) { am = Toolbox.Instance.FindManager<AudioManager>(); }
 
         Ark.gameObject.SetActive(false);
+        laserLoc = transform.Find("LaserLocation");
         
         // SetCorrectHPLayout();
     }

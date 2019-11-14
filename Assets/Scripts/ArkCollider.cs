@@ -73,7 +73,10 @@ public class ArkCollider : MonoBehaviour
     public void DoDamageToList()
     {
         if (isUsedAlready) return;
-        //am.PlayAudioClip("execFire", AudioManager.ClipType.SFX);
+        parentPlayer.laserLoc.gameObject.SetActive(true);
+        
+
+        am.PlayAudioClip("execFire", AudioManager.ClipType.SFX);
         // parentPlayer.GetComponent<PlayerController>().RespawnLaser();
         
         
@@ -83,11 +86,20 @@ public class ArkCollider : MonoBehaviour
             
         }
         isUsedAlready = true;
+        StartCoroutine(RemoveObject()); 
     }
 
     public void DoFade()
     {
         SetColor();
         anim.SetBool("PlayFade", true);
+    }
+
+    IEnumerator RemoveObject()
+    {
+        yield return new WaitForSeconds(0.2f);
+        parentPlayer.laserLoc.gameObject.SetActive(false);
+        Destroy(this.gameObject);
+        
     }
 }
